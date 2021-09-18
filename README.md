@@ -1,7 +1,7 @@
 # Neo4j
 ## How to test
-Clone the repo first : ```git clone https://github.com/17341/Neo4j```
+First clone the repo : ```git clone https://github.com/17341/Neo4j```
 
-Once the repo is cloned open it in an IDE and run (make sure to be in the folder) :  ```npm install```
+Then go to the repo directory and run :  ```npm install```
 
-All the nodules will be downloaded, once done run the program using : ```npm start ```
+Finally after that all the node nodules are installed run the program using : ```npm start ```
