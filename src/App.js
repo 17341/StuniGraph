@@ -1,7 +1,7 @@
 import "./App.css"
 import { useState } from "react";
-import AddPage from "./AddPage";
-import ViewPage from "./ViewPage";
+import AddPage from "./components/Pages/AddPage";
+import ViewPage from "./components/Pages/ViewPage";
 import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
@@ -10,6 +10,7 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
+import { Neo4jProvider, createDriver } from "use-neo4j"
 
 const App = () =>{
   

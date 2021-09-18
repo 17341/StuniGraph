@@ -1,7 +1,7 @@
 import { Select, Form, Input, Button, InputNumber, Switch, TreeSelect} from 'antd';
 import { useState } from 'react';
-import flatten from "./hooks/flatten"
-import CoursesDict from './utils/Courses';
+import flatten from "../../hooks/flatten"
+import CoursesDict from '../../utils/Courses';
 
 const { Option } = Select;
 
