@@ -1,5 +1,5 @@
 import { Select, Form, Input, Button, InputNumber, Switch, TreeSelect, message} from 'antd';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import flatten from "../../hooks/flatten"
 import queryBuilder from '../../hooks/queryBuilder';
 import sendQuery from '../../hooks/sendQuery';
@@ -48,6 +48,10 @@ const AddPage = () =>{
         }
     }
 
+    useEffect(() => {
+        setCustomizePAE(false)
+    },[status]);
+    
     return (
     <>
         <Form
