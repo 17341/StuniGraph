@@ -22,7 +22,18 @@ const NeoGraph = (props) => {
       server_user: neo4jUser,
       server_password: neo4jPassword,
       labels: {
-        
+        "STUDENT": {
+            "caption": "firstname",
+        },
+        "TEACHER": {
+            "caption": "acronym",
+        },
+        "GRADE": {
+            "caption": "name",
+        },
+        "COURSE": {
+            "caption": "code",
+        }
       },
       relationships: {
         
