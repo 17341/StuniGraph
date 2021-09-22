@@ -1,5 +1,5 @@
 import { Select, Form, Input, Button, InputNumber, Switch, TreeSelect} from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import flatten from "../../hooks/flatten"
 import CoursesDict from '../../utils/Courses';
 
@@ -34,6 +34,10 @@ const AddPage = () =>{
     const [status , setStatus ] = useState("Teacher")
     const handleClick = (values) => { console.log(values)}
 
+    useEffect(() => {
+        setCustomizePAE(false)
+    },[status]);
+    
     return (
     <>
         <Form
