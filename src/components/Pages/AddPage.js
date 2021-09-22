@@ -1,8 +1,10 @@
-import { Select, Form, Input, Button, InputNumber, Switch, TreeSelect} from 'antd';
+import { Select, Form, Input, Button, InputNumber, Switch, TreeSelect, message} from 'antd';
 import { useState } from 'react';
 import flatten from "../../hooks/flatten"
+import queryBuilder from '../../hooks/queryBuilder';
+import sendQuery from '../../hooks/sendQuery';
 import CoursesDict from '../../utils/Courses';
-
+import verificationQuery from '../../utils/verificationQuery';
 const { Option } = Select;
 
 let CoursesList = []
@@ -32,7 +34,19 @@ const Courses = () => {
 const AddPage = () =>{
     const [customizePAE , setCustomizePAE ] = useState(false)
     const [status , setStatus ] = useState("Teacher")
-    const handleClick = (values) => { console.log(values)}
+
+    const handleClick = (values) => {
+        if ( sendQuery(verificationQuery(values)) == "Success"){
+            sendQuery(queryBuilder(values))
+            //message.success("Success : You have been added to the graph :)")
+        }
+        else if(sendQuery(verificationQuery(values) == "Error")){
+            message.error("Error : Try again ")
+        }
+        else {
+            //message.warning("Warning : This person is already in the graph")
+        }
+    }
 
     return (
     <>
@@ -64,7 +78,7 @@ const AddPage = () =>{
                     <TreeSelect showSearch treeData={TreeGrade}/>
                 </Form.Item>
 
-                <Form.Item label="Matricule" name= 'matricule' required>
+                <Form.Item label="Matricule" name= 'identification' required>
                     <InputNumber />
                 </Form.Item>
 

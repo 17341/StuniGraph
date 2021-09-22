@@ -1,4 +1,5 @@
 const sendQuery = (query, read = false) =>{
+    let result
     (async() => {
         const neo4j = require('neo4j-driver')
         
@@ -11,28 +12,26 @@ const sendQuery = (query, read = false) =>{
 
         try {
             if (read){
-                
-                const readResult = await session.readTransaction(tx =>
+                result = await session.readTransaction(tx =>
                     tx.run(query)
                 )
-                readResult.records.forEach(record => {
-                    console.log(record)
-                })
             }
             else {
-                const result = await session.writeTransaction(tx =>
+                result = await session.writeTransaction(tx =>
                     tx.run(query)
-                )
-                result.records.forEach(record => {
-                    console.log(record)
-                })
+                )   
             }
+            result.records.forEach(record => {
+                console.log(record)
+            })
         } catch (error) {
             console.error('Something went wrong: ', error)
+            result = "Error"
         } finally {
             await session.close()
         }  
         await driver.close()
     })();
+    return result
 }   
 export default sendQuery;
