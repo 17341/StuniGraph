@@ -1,13 +1,9 @@
 const CoursesDict = {
-    "1BA" : ["Chimie-Physique", "Electricité et outils mathématiques", "Stabilité",
-            "Informatique et communication", "Science du mouvement - Cinématique","Technologie",
-            "Science du mouvement - Dynamique","Science des matériaux", "Projet intégrateur",
-            "Pont vers le supérieur : Mathématiques","Pont vers le supérieur : Sciences"]
+    "1BA" : ["1bacp10",	"1baem10","1baic10","1bamc10","1bamd10","1bamm10","1bapi10",
+             "1bapm10","1baps10","1bast10","1bate10"]
     ,
-    "2BA" : ["Chimie du vivant et environnement","Dessin technique","Electricité","Electronique",
-            "Informatique","Langues","Mécanique des fluides et transfert de chaleur","Outils mathématiques",
-            "Onde, optique et physique moderne", "Stabilité, déformation et résistance des structure",
-            "Thermodynamique", "Mesures","Projet EM", "Technologie EM"]
+    "2BA" : ["2bach20","2badt20","2bael20","2baeo20","2bain20","2bala20","2bamf20",
+             "2baom20","2baph20","2barm20","2bath20","2batm20","2beea20","2bepi20"]
     ,
     "3BE" : [],
     "3BM" : [],
@@ -31,4 +27,32 @@ const CoursesDict = {
     '5MIC': [],
 }
 
-export default CoursesDict;
+const CoursesCodes = {
+        "1bacp10": "Chimie-Physique",	
+        "1baem10": "Electricité et outils mathématiques",	
+        "1baic10": "Informatique et communication",
+        "1bamc10": "Science du mouvement - Cinématique",	
+        "1bamd10": "Science du mouvement - Dynamique",	
+        "1bamm10": "Science des matériaux",	
+        "1bapi10": "Projet intégrateur",	
+        "1bapm10": "Pont vers le supérieur : mathématiques",
+        "1baps10": "Pont vers le supérieur : Sciences",	
+        "1bast10": "Stabilité",	
+        "1bate10": "Technologie",
+        "2bach20": "Chimie du vivant et environnement",
+        "2badt20": "Dessin technique",
+        "2bael20": "Electricité",
+        "2baeo20": "Electronique",
+        "2bain20": "Informatique",
+        "2bala20": "Langues",
+        "2bamf20": "Mécanique des fluides et transfert de chaleur",
+        "2baom20": "Outils mathématiques",
+        "2baph20": "Onde, optique et physique moderne",
+        "2barm20": "Stabilité, déformation et résistance des structure",
+        "2bath20": "Thermodynamique",
+        "2batm20": "Mesures",
+        "2beea20": "Electronique appliquée",
+        "2bepi20": "Projet informatique"
+}
+
+export default { CoursesDict, CoursesCodes };

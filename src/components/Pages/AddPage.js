@@ -1,31 +1,29 @@
 import { Select, Form, Input, Button, InputNumber, Switch, TreeSelect, message} from 'antd';
 import { useState,useEffect } from 'react';
-import flatten from "../../hooks/flatten"
+// import flatten from "../../hooks/flatten"
 import queryBuilder from '../../hooks/queryBuilder';
 import sendQuery from '../../hooks/sendQuery';
-import CoursesDict from '../../utils/Courses';
 import verificationQuery from '../../hooks/verificationQuery';
 const { Option } = Select;
 
-let CoursesList = []
+const courses = require('../../utils/Courses');
 
-const TreeGrade = Object.keys(CoursesDict).map((key) => {
-    if ( Array.isArray(CoursesDict[key]) ) {
-        CoursesList.push(CoursesDict[key].map(elem => {return elem}))
+const TreeGrade = Object.keys(courses.default.CoursesDict).map((key) => {
+    if ( Array.isArray(courses.default.CoursesDict[key]) ) {
         return({title : key , value : key})
     }
     else {
-        CoursesList.push(Object.keys(CoursesDict[key]).map(elem => {return CoursesDict[key][elem]}))
-        return ({title : key , value : key, children : Object.keys(CoursesDict[key]).map(elem => { return {title: elem, value: elem} }) })
+        return ({title : key , value : key, children : 
+            Object.keys(courses.default.CoursesDict[key])
+            .map(elem => { return {title: elem, value: elem} }) })
     }
 })
 
 const Courses = () => {
-    CoursesList = flatten(CoursesList)
     return( 
         <Form.Item label="Courses" required name = "courses">
             <Select showSearch mode ="multiple">
-                {CoursesList.map(key => <Option value={key}>{key}</Option>)}
+                {Object.keys(courses.default.CoursesCodes).map(key => <Option value={key}>{courses.default.CoursesCodes[key]}</Option>)}
             </Select>
         </Form.Item> 
     )
@@ -66,7 +64,7 @@ const AddPage = () =>{
                 </Select>
             </Form.Item>
 
-            <Form.Item label="First Name" name= 'first_name' equired>
+            <Form.Item label="First Name" name= 'first_name' required>
                 <Input />
             </Form.Item>
 
@@ -88,7 +86,7 @@ const AddPage = () =>{
                 <Courses/>
                 : ""
                 }
-                <Form.Item label="Customize PAE" valuePropName="checked" >
+                <Form.Item label="Customize PAE" valuePropName="checked" name = "customPAE">
                     <Switch onChange = {(e) =>setCustomizePAE(e)}/>
                 </Form.Item>
             </>
@@ -96,6 +94,7 @@ const AddPage = () =>{
             <>
                 <Courses/>
                 <Form.Item label="Identification" name= 'identification' required><Input /></Form.Item>
+                <Form.Item label="Salary" name= 'salary' ><InputNumber /></Form.Item>
             </>
             }
             
