@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
+import { findByLabelText } from "@testing-library/react";
 
 const NeoGraph = (props) => {
   const {
@@ -46,22 +47,24 @@ const NeoGraph = (props) => {
   }, [neo4jUri, neo4jUser, neo4jPassword]);
 
   return (
-    <div
-      id={containerId}
-      ref={visRef}
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        backgroundColor: `${backgroundColor}`,
-      }}
-    />
+    <>
+      <h1 style = {{textAlign: "center"}}>Database Graph</h1>
+      <div
+        id={containerId}
+        ref={visRef}
+        style={{
+          width: `${width}px`,
+          height: `${height}px`,
+          backgroundColor: `${backgroundColor}`
+        }}
+      />
+    </>
   );
 };
 
 NeoGraph.defaultProps = {
-  width: 600,
-  height: 600,
-  backgroundColor: "#d3d3d3",
+  width: 800,
+  height: 500,
 };
 
 NeoGraph.propTypes = {

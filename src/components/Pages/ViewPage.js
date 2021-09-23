@@ -8,13 +8,12 @@ const NEO4J_PASSWORD = "ynouCqeLqW6bYVIgndyceZj1ot9Zbv9ua3pxArR3D7s";
 const ViewPage= () => {
   return (
     <div >
-      <h1>React Neovis Example</h1>
       <NeoGraph
         containerId={"id1"}
         neo4jUri={NEO4J_URI}
         neo4jUser={NEO4J_USER}
         neo4jPassword={NEO4J_PASSWORD}
-        backgroundColor={"#b2beb5"}
+        backgroundColor={"#f7faf8"}
       />
     </div>
   );

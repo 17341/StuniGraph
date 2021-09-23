@@ -4,7 +4,7 @@ import flatten from "../../hooks/flatten"
 import queryBuilder from '../../hooks/queryBuilder';
 import sendQuery from '../../hooks/sendQuery';
 import CoursesDict from '../../utils/Courses';
-import verificationQuery from '../../utils/verificationQuery';
+import verificationQuery from '../../hooks/verificationQuery';
 const { Option } = Select;
 
 let CoursesList = []
@@ -34,18 +34,15 @@ const Courses = () => {
 const AddPage = () =>{
     const [customizePAE , setCustomizePAE ] = useState(false)
     const [status , setStatus ] = useState("Teacher")
+    const [form] = Form.useForm();
 
     const handleClick = (values) => {
-        if ( sendQuery(verificationQuery(values)) == "Success"){
-            sendQuery(queryBuilder(values))
-            //message.success("Success : You have been added to the graph :)")
-        }
-        else if(sendQuery(verificationQuery(values) == "Error")){
-            message.error("Error : Try again ")
-        }
-        else {
-            //message.warning("Warning : This person is already in the graph")
-        }
+        sendQuery(verificationQuery(values),true)
+            .then(function(res){
+                if(res == "New") { sendQuery(queryBuilder(values)); message.success("Added"); form.resetFields()}
+                else if(res == "Found") {message.warning("This user already exists");form.resetFields(["identification"])}
+                else{message.error("Error : Try again")}
+            })
     }
 
     useEffect(() => {
@@ -55,10 +52,11 @@ const AddPage = () =>{
     return (
     <>
         <Form
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 14 }}
-          layout="horizontal"
-          onFinish ={handleClick}
+            form={form}
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 14 }}
+            layout="horizontal"
+            onFinish ={handleClick}
         >
             <Form.Item label="Status" name= 'status' required initialValue = "Teacher" >
                 <Select onSelect = {(e) => setStatus(e)} defaultValue = "Teacher">
