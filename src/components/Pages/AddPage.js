@@ -35,6 +35,7 @@ const AddPage = () =>{
     const [form] = Form.useForm();
 
     const handleClick = (values) => {
+        console.log(queryBuilder(values))
         sendQuery(verificationQuery(values),true)
             .then(function(res){
                 if(res == "New") { sendQuery(queryBuilder(values)); message.success("Added"); form.resetFields()}
@@ -56,8 +57,8 @@ const AddPage = () =>{
             layout="horizontal"
             onFinish ={handleClick}
         >
-            <Form.Item label="Status" name= 'status' required initialValue = "Teacher" >
-                <Select onSelect = {(e) => setStatus(e)} defaultValue = "Teacher">
+            <Form.Item label="Status" name= 'status' required  >
+                <Select onSelect = {(e) => setStatus(e)} >
                     <Option value="Student">Student</Option>
                     <Option value="Teacher">Teacher</Option>
                 {/* <Option value="Futur Student">Futur Student</Option> */}

@@ -37,7 +37,22 @@ const NeoGraph = (props) => {
         }
       },
       relationships: {
-        
+        "BELONGS_TO": {
+          "thickness": "weight",
+          "caption": false
+        },
+        "HAS": {
+          "thickness": "weight",
+          "caption": false
+        },
+        "IS_IN": {
+          "thickness": "weight",
+          "caption": false
+        },
+        "TEACHS": {
+          "thickness": "weight",
+          "caption": false
+        }
       },
       initial_cypher:
         "MATCH (n)-[r]->(m) RETURN *",
@@ -63,8 +78,8 @@ const NeoGraph = (props) => {
 };
 
 NeoGraph.defaultProps = {
-  width: 800,
-  height: 500,
+  width: 1000,
+  height: 600,
 };
 
 NeoGraph.propTypes = {

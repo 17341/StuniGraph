@@ -1,9 +1,9 @@
 import React from "react";
 import { NeoGraph} from "../NeoGraph";
 
-const NEO4J_URI = "bolt://172b9f24.databases.neo4j.io/browser/";
+const NEO4J_URI = "bolt://localhost:7687/neo4j";
 const NEO4J_USER = "neo4j";
-const NEO4J_PASSWORD = "ynouCqeLqW6bYVIgndyceZj1ot9Zbv9ua3pxArR3D7s";
+const NEO4J_PASSWORD = "1234";
 
 const ViewPage= () => {
   return (

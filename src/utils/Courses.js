@@ -10,7 +10,7 @@ const CoursesDict = {
     "3BS" : [],
     '4MEM': [],
     '4MAU': [],
-    '4MIN': [],
+    '4MIN': ["4eidb40"],
     '4MCO': [],
     '4MGE': [],
     '4MIS': [],
@@ -52,7 +52,8 @@ const CoursesCodes = {
         "2bath20": "Thermodynamique",
         "2batm20": "Mesures",
         "2beea20": "Electronique appliquée",
-        "2bepi20": "Projet informatique"
+        "2bepi20": "Projet informatique",
+        "4eidb40": "Database managment system"
 }
 
 export default { CoursesDict, CoursesCodes };
