@@ -5,10 +5,8 @@ import { findByLabelText } from "@testing-library/react";
 
 const NeoGraph = (props) => {
   const {
-    width,
-    height,
     containerId,
-    backgroundColor,
+    style,
     neo4jUri,
     neo4jUser,
     neo4jPassword,
@@ -67,20 +65,12 @@ const NeoGraph = (props) => {
       <div
         id={containerId}
         ref={visRef}
-        style={{
-          width: `${width}px`,
-          height: `${height}px`,
-          backgroundColor: `${backgroundColor}`
-        }}
+        style={style}
       />
     </>
   );
 };
 
-NeoGraph.defaultProps = {
-  width: 1000,
-  height: 600,
-};
 
 NeoGraph.propTypes = {
   width: PropTypes.number.isRequired,
