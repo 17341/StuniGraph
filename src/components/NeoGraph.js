@@ -5,10 +5,8 @@ import { findByLabelText } from "@testing-library/react";
 
 const NeoGraph = (props) => {
   const {
-    width,
-    height,
     containerId,
-    backgroundColor,
+    style,
     neo4jUri,
     neo4jUser,
     neo4jPassword,
@@ -37,7 +35,22 @@ const NeoGraph = (props) => {
         }
       },
       relationships: {
-        
+        "BELONGS_TO": {
+          "thickness": "weight",
+          "caption": false
+        },
+        "HAS": {
+          "thickness": "weight",
+          "caption": false
+        },
+        "IS_IN": {
+          "thickness": "weight",
+          "caption": false
+        },
+        "TEACHS": {
+          "thickness": "weight",
+          "caption": false
+        }
       },
       initial_cypher:
         "MATCH (n)-[r]->(m) RETURN *",
@@ -52,20 +65,12 @@ const NeoGraph = (props) => {
       <div
         id={containerId}
         ref={visRef}
-        style={{
-          width: `${width}px`,
-          height: `${height}px`,
-          backgroundColor: `${backgroundColor}`
-        }}
+        style={style}
       />
     </>
   );
 };
 
-NeoGraph.defaultProps = {
-  width: 800,
-  height: 500,
-};
 
 NeoGraph.propTypes = {
   width: PropTypes.number.isRequired,

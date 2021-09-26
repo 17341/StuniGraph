@@ -1,40 +1,20 @@
 import { Select, Form, Input, Button, InputNumber, Switch, TreeSelect, message} from 'antd';
 import { useState,useEffect } from 'react';
-// import flatten from "../../hooks/flatten"
 import queryBuilder from '../../hooks/queryBuilder';
 import sendQuery from '../../hooks/sendQuery';
 import verificationQuery from '../../hooks/verificationQuery';
+import CoursesDict from '../../utils/CoursesDict';
+import Courses from '../../utils/Courses';
+
 const { Option } = Select;
-
-const courses = require('../../utils/Courses');
-
-const TreeGrade = Object.keys(courses.default.CoursesDict).map((key) => {
-    if ( Array.isArray(courses.default.CoursesDict[key]) ) {
-        return({title : key , value : key})
-    }
-    else {
-        return ({title : key , value : key, children : 
-            Object.keys(courses.default.CoursesDict[key])
-            .map(elem => { return {title: elem, value: elem} }) })
-    }
-})
-
-const Courses = () => {
-    return( 
-        <Form.Item label="Courses" required name = "courses">
-            <Select showSearch mode ="multiple">
-                {Object.keys(courses.default.CoursesCodes).map(key => <Option value={key}>{courses.default.CoursesCodes[key]}</Option>)}
-            </Select>
-        </Form.Item> 
-    )
-}
 
 const AddPage = () =>{
     const [customizePAE , setCustomizePAE ] = useState(false)
-    const [status , setStatus ] = useState("Teacher")
+    const [status , setStatus ] = useState("TEACHER")
     const [form] = Form.useForm();
 
     const handleClick = (values) => {
+        //console.log(queryBuilder(values))
         sendQuery(verificationQuery(values),true)
             .then(function(res){
                 if(res == "New") { sendQuery(queryBuilder(values)); message.success("Added"); form.resetFields()}
@@ -48,19 +28,22 @@ const AddPage = () =>{
     },[status]);
     
     return (
+
     <>
         <Form
             form={form}
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}
+            initialValues={{
+                status : "TEACHER"
+            }}
             layout="horizontal"
             onFinish ={handleClick}
         >
-            <Form.Item label="Status" name= 'status' required initialValue = "Teacher" >
-                <Select onSelect = {(e) => setStatus(e)} defaultValue = "Teacher">
-                    <Option value="Student">Student</Option>
-                    <Option value="Teacher">Teacher</Option>
-                {/* <Option value="Futur Student">Futur Student</Option> */}
+            <Form.Item label="Status" name= 'status' required  >
+                <Select onSelect = {(e) => setStatus(e)} >
+                    <Option value="STUDENT">Student</Option>
+                    <Option value="TEACHER">Teacher</Option>
                 </Select>
             </Form.Item>
 
@@ -71,11 +54,20 @@ const AddPage = () =>{
             <Form.Item label="Last Name" name= 'last_name' required>
                 <Input />
             </Form.Item>
+            <Form.Item label="Email" name= 'email' required>
+                <Input />
+            </Form.Item>
 
-            {status=== "Student" ? 
+            <Form.Item  label="Password" name= 'password' required>
+                <Input.Password />
+            </Form.Item>
+
+            {status=== "STUDENT" ? 
             <>
                 <Form.Item label="Grade" name= 'grade' required >
-                    <TreeSelect showSearch treeData={TreeGrade}/>
+                    <Select showSearch>
+                        {Object.keys(CoursesDict).map(key => <Option value={key}>{key}</Option>)}
+                    </Select>
                 </Form.Item>
 
                 <Form.Item label="Matricule" name= 'identification' required>
@@ -83,7 +75,9 @@ const AddPage = () =>{
                 </Form.Item>
 
                 {customizePAE ? 
-                <Courses/>
+                <Form.Item label="Courses" name= 'courses' required>
+                    <TreeSelect multiple showSearch treeData={Courses}/>
+                </Form.Item>
                 : ""
                 }
                 <Form.Item label="Customize PAE" valuePropName="checked" name = "customPAE">
@@ -92,14 +86,16 @@ const AddPage = () =>{
             </>
             : 
             <>
-                <Courses/>
-                <Form.Item label="Identification" name= 'identification' required><Input /></Form.Item>
+                <Form.Item label="Courses" name= 'courses' required>
+                    <TreeSelect multiple showSearch treeData={Courses}/>
+                </Form.Item>
+                <Form.Item label="Acronym" name= 'identification' required><Input /></Form.Item>
                 <Form.Item label="Salary" name= 'salary' ><InputNumber /></Form.Item>
             </>
             }
-            
             <Form.Item wrapperCol={{ offset: 5, span: 14 }}>
                 <Button type="primary" htmlType="submit">Submit</Button>
+                <Button style={{marginLeft :"30px"}} onClick={ () => form.resetFields()}>Reset</Button>
             </Form.Item>
         </Form>
     </>

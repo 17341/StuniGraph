@@ -3,9 +3,9 @@ let result
 async function sendQuery (query, read = false) {
     const neo4j = require('neo4j-driver')
     
-    const uri = 'neo4j+s://172b9f24.databases.neo4j.io';
+    const uri = 'bolt://localhost:7687/neo4j';
     const user = 'neo4j';
-    const password = 'ynouCqeLqW6bYVIgndyceZj1ot9Zbv9ua3pxArR3D7s';
+    const password = '1234';
     
     const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
     const session = driver.session()
@@ -21,7 +21,7 @@ async function sendQuery (query, read = false) {
                 tx.run(query)
             )   
         }
-        result.records.length != 0 ? response = "Found" : response = "New" ;
+        result.records.length !== 0 ? response = "Found" : response = "New" ;
     } catch (error) {
         console.error('Something went wrong: ', error)
         response = "Error"
