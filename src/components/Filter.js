@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Select, TreeSelect} from 'antd';
-import Courses from './Courses';
+import Courses from '../utils/Courses';
 import CoursesDict from '../utils/CoursesDict';
 
 const { Option } = Select
@@ -37,7 +37,10 @@ const Filter = () =>{
                 <TreeSelect multiple showSearch treeData={Courses}/>
             </Form.Item>
             <Form.Item labelCol={{ span: 20 }} wrapperCol={{ span: 20 }}  style={{ marginLeft: '50px' }}>
-              <Button  style={{ borderRadius: '20px' }} type="primary" htmlType="submit">Submit</Button>
+              <Button style={{ borderRadius: '20px' }} type="primary" htmlType="submit">Submit</Button>
+            </Form.Item>
+            <Form.Item labelCol={{ span: 20 }} wrapperCol={{ span: 20 }}  style={{ marginLeft: '50px' }}>
+              <Button onClick={() => form.resetFields()}>Reset</Button>
             </Form.Item>
           </Form>
         </>

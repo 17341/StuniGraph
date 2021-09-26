@@ -1,4 +1,4 @@
-import CoursesDict from "../utils/CoursesDict"
+import CoursesDict from "./CoursesDict"
 
 const Courses = Object.keys(CoursesDict).map(grade => {
     return ({

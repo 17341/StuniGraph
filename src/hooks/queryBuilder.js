@@ -1,24 +1,23 @@
 import CoursesDict from "../utils/CoursesDict";
 
 const queryBuilder = (values) =>{
-    console.log(values)
+    //console.log(values)
     let query = "";
     let courses_list = values.courses
     let relationship = "HAS";
     
-    if (values.status === "Student"){
-        query = `MERGE (x:${values.status.toUpperCase()} {firstname: "${values.first_name}",
+    if (values.status === "STUDENT"){
+        query = `MERGE (x:${values.status.toUpperCase()} {firstname: "${values.first_name}",email : "${values.email}", password : "${values.password}",
                  lastname :"${values.last_name}", matricule : "${values.identification}", grade : "${values.grade}"})`
         values.customPAE ? courses_list = values.courses : courses_list = CoursesDict[values.grade].map(course => {return course.code});
     }
-    else if(values.status === "Teacher") {
-        query = `MERGE (x:${values.status.toUpperCase()} {firstname: "${values.first_name}", 
+    else if(values.status === "TEACHER") {
+        query = `MERGE (x:${values.status.toUpperCase()} {firstname: "${values.first_name}",email : "${values.email}", password : "${values.password}", 
                  lastname :"${values.last_name}", acronym : "${values.identification}", salary :"${values.salary}"})`
         relationship = "TEACHS"
     }
     else{}
 
-    console.log(courses_list)
     courses_list.map(elem => {
         let name
         let credits

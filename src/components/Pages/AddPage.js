@@ -4,13 +4,13 @@ import queryBuilder from '../../hooks/queryBuilder';
 import sendQuery from '../../hooks/sendQuery';
 import verificationQuery from '../../hooks/verificationQuery';
 import CoursesDict from '../../utils/CoursesDict';
-import Courses from '../Courses';
+import Courses from '../../utils/Courses';
 
 const { Option } = Select;
 
 const AddPage = () =>{
     const [customizePAE , setCustomizePAE ] = useState(false)
-    const [status , setStatus ] = useState("Teacher")
+    const [status , setStatus ] = useState("TEACHER")
     const [form] = Form.useForm();
 
     const handleClick = (values) => {
@@ -28,21 +28,22 @@ const AddPage = () =>{
     },[status]);
     
     return (
+
     <>
         <Form
             form={form}
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}
             initialValues={{
-                status : "Teacher"
+                status : "TEACHER"
             }}
             layout="horizontal"
             onFinish ={handleClick}
         >
             <Form.Item label="Status" name= 'status' required  >
                 <Select onSelect = {(e) => setStatus(e)} >
-                    <Option value="Student">Student</Option>
-                    <Option value="Teacher">Teacher</Option>
+                    <Option value="STUDENT">Student</Option>
+                    <Option value="TEACHER">Teacher</Option>
                 </Select>
             </Form.Item>
 
@@ -53,8 +54,15 @@ const AddPage = () =>{
             <Form.Item label="Last Name" name= 'last_name' required>
                 <Input />
             </Form.Item>
-           
-            {status=== "Student" ? 
+            <Form.Item label="Email" name= 'email' required>
+                <Input />
+            </Form.Item>
+
+            <Form.Item  label="Password" name= 'password' required>
+                <Input.Password />
+            </Form.Item>
+
+            {status=== "STUDENT" ? 
             <>
                 <Form.Item label="Grade" name= 'grade' required >
                     <Select showSearch>
@@ -81,13 +89,13 @@ const AddPage = () =>{
                 <Form.Item label="Courses" name= 'courses' required>
                     <TreeSelect multiple showSearch treeData={Courses}/>
                 </Form.Item>
-                <Form.Item label="Identification" name= 'identification' required><Input /></Form.Item>
+                <Form.Item label="Acronym" name= 'identification' required><Input /></Form.Item>
                 <Form.Item label="Salary" name= 'salary' ><InputNumber /></Form.Item>
             </>
             }
-            
             <Form.Item wrapperCol={{ offset: 5, span: 14 }}>
                 <Button type="primary" htmlType="submit">Submit</Button>
+                <Button style={{marginLeft :"30px"}} onClick={ () => form.resetFields()}>Reset</Button>
             </Form.Item>
         </Form>
     </>
