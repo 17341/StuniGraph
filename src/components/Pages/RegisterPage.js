@@ -1,87 +1,77 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { InputLabel,Select,MenuItem,FormControl } from '@mui/material';
-import LoginPage from './LoginPage';
+import { InputLabel,Select,MenuItem,FormControl,Switch,FormControlLabel } from '@mui/material';
 import CoursesDict from '../../utils/CoursesDict';
-import sendQuery from '../../hooks/sendQuery';
-import { message } from 'antd';
 import verificationQuery from '../../hooks/verificationQuery';
-import App from '../../App';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/17341">
-        FrigoFri
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
 const RegisterPage = () => {
-  const [login, setLogin] = React.useState(false)
   const [status, setStatus] = React.useState("STUDENT")
-  const [registered, setRegistered] = React.useState(false)
-  const handleSubmit = (event) => {
+  const [switched, setSwitched] = React.useState(false);
+
+  let values = {
+    status : undefined,
+    first_name : undefined,
+    last_name : undefined,
+    identification : undefined,
+    grade : undefined,
+    email : undefined,
+    salary : undefined,
+    acronym : undefined,
+    password : undefined
+  }
+
+  window.localStorage.setItem("registerQuery",JSON.stringify(values))
+
+  const handleChange = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let query
-    status == "STUDENT" 
-    ?
-    query = `MERGE (x:${data.get('status')} {firstname: "${data.get('firstName')}",lastname :"${data.get('lastName')}",
-      matricule : "${data.get('identification')}", grade : "${data.get('grade')}",email :"${data.get('email')}", password :"${data.get('password')}"})`
-    :
-    query = `MERGE (x:${data.get('status')} {firstname: "${data.get('firstName')}",lastname :"${data.get('lastName')}", 
-    salary :"${data.get('salary')}",acronym : "${data.get('identification')}",email :"${data.get('email')}", password :"${data.get('password')}"})`
+    
+    values = {
+      status : data.get('status'),
+      first_name : data.get('firstName'),
+      last_name : data.get('lastName'),
+      identification : data.get('identification'),
+      grade : data.get('grade'),
+      email : data.get('email'),
+      salary : data.get('salary'),
+      acronym : data.get('identification'),
+      password : data.get('password'),
+    }
 
-    sendQuery(verificationQuery({status : data.get('status'), email : data.get('email')}),true)
-            .then(function(res){
-                if(res == "New") { sendQuery(query); message.success("Registered"); setRegistered(true)}
-                else if(res == "Found") {message.warning("This user already exists")}
-                else{message.error("Error : Try again")}
-            })
+    window.localStorage.setItem("registerQuery",JSON.stringify(values))
+    window.localStorage.setItem("verificationQuery", verificationQuery({status : data.get('status'), email : data.get('email')}))
+    
   };
 
+ 
   return (
     <>
-    {
-      registered ? <App/> : 
-      login ? <LoginPage/> :
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
+                marginBottom: 8,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
                 Sign up
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              </Typography> */}
+              <Box component="form" noValidate onChange={handleChange} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} >
                     <InputLabel id="status">Status</InputLabel>
@@ -121,6 +111,27 @@ const RegisterPage = () => {
                       autoComplete="lname"
                     />
                   </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="new-password"
+                    />
+                  </Grid>
                   {
                     status=== "STUDENT"  
                     ?
@@ -153,6 +164,7 @@ const RegisterPage = () => {
                         type = "number"
                       />
                     </Grid>
+                    
                   </>
                   :
                   <>
@@ -179,29 +191,9 @@ const RegisterPage = () => {
                     </Grid>
                   </>
                   }
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                    />
-                  </Grid>
+                  
                 </Grid>
-                <Button
+                {/* <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -212,23 +204,20 @@ const RegisterPage = () => {
                 >
                   Sign Up
                 </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item xs>
-                          <Button 
-                          fullWidth
-                          variant="contained"
-                          onClick ={() => setLogin(true)}
-                          >
-                            Already have an account? Sign in
-                          </Button>
-                  </Grid>
-                </Grid>
+                <Grid item xs>
+                  <Button 
+                  fullWidth
+                  variant="contained"
+                  onClick ={() => setLogin(true)}
+                  >
+                    Already have an account? Sign in
+                  </Button>
+                </Grid> */}
               </Box>
             </Box>
-            <Copyright sx={{ mt: 5 }} />
+            {/* <Copyright sx={{ mt: 5 }} /> */}
           </Container>
         </ThemeProvider>
-    }
     </>
   );
 }

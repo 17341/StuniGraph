@@ -1,7 +1,7 @@
 import CoursesDict from "../utils/CoursesDict";
 
 const queryBuilder = (values) =>{
-    //console.log(values)
+    console.log("values",values)
     let query = "";
     let courses_list = values.courses
     let relationship = "HAS";

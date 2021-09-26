@@ -40,7 +40,6 @@ const LoginPage= ({login}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
     sendQuery(verificationQuery({status : data.get('status'), email : data.get('email')}),true)
             .then(function(res){
                 if(res == "New") {message.success("Account not found")}
@@ -94,7 +93,7 @@ const LoginPage= ({login}) => {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
               <FormControl fullWidth>
               <InputLabel id="status">Status</InputLabel>
               <Select
@@ -136,6 +135,9 @@ const LoginPage= ({login}) => {
                 type="submit"
                 fullWidth
                 variant="contained"
+                style={{
+                  backgroundColor: "green",
+                }}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
@@ -144,10 +146,6 @@ const LoginPage= ({login}) => {
                 <Grid item xs>
                     <Button 
                     fullWidth
-                    variant="contained"
-                    style={{
-                        backgroundColor: "green",
-                    }}
                     onClick ={() => setRegister(true)}
                     >
                       Don't have an account? Sign Up
@@ -160,7 +158,7 @@ const LoginPage= ({login}) => {
         </Grid>
       </Grid>
     </ThemeProvider>
-    : <RegisterPage />
+    : <Page />
     }
   </>
   );
