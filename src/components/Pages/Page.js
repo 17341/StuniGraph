@@ -21,6 +21,8 @@ import { message } from "antd";
 import queryBuilder from "../../hooks/queryBuilder";
 import DashboardPage from "./DashboardPage";
 import Copyright from "../../utils/Copyright";
+import Cookies from 'js-cookie'
+import connect from "../../hooks/connect";
 
 const steps = ["Sign up", "Choose courses", "Review"];
 
@@ -82,6 +84,9 @@ const Page = () => {
             content: "Registered",
             style: { marginTop: "6vh" },
           });
+          connect(values.status,values.email)
+          Cookies.set("status", values.status)
+          Cookies.set("email", values.email)
           setActiveStep(activeStep + 1);
           setFinalMessage(
             `Welcome to the Graph ${values.first_name}, you can now view all the graph .`

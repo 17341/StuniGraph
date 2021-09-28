@@ -17,6 +17,8 @@ import sendQuery from "../../hooks/sendQuery";
 import verificationQuery from "../../hooks/verificationQuery";
 import Copyright from "../../utils/Copyright";
 import DashboardPage from "./DashboardPage";
+import connect from "../../hooks/connect";
+import Cookies from 'js-cookie'
 
 const theme = createTheme();
 
@@ -51,6 +53,9 @@ const LoginPage = () => {
             message.warning("Incorrect Password");
           } else if (res === "Found") {
             message.success("Connected");
+            connect(data.get("status"), data.get("email"))
+            Cookies.set("status", data.get("status"))
+            Cookies.set("email", data.get("email"))
             setLogin(true);
           } else {
             message.error("Error : Try again");

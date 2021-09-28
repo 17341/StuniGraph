@@ -15,6 +15,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ViewPage from "./ViewPage";
 import Copyright from "../../utils/Copyright";
+import disconnect from "../../hooks/disconnect";
+import LogoutIcon from '@mui/icons-material/Logout';
+import Cookies from 'js-cookie'
+import LoginPage from "./LoginPage";
 
 const drawerWidth = 240;
 
@@ -66,11 +70,13 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
+  const [connected, setConnected] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
+    connected ?
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
@@ -102,11 +108,9 @@ function DashboardContent() {
             >
               NoSQL Graph with Neo4j
             </Typography>
-            {/* <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
+            <IconButton color="inherit" onClick = {() => {disconnect(Cookies.get("status"),Cookies.get("email"));setConnected(false)}}>
+                <LogoutIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -213,6 +217,7 @@ function DashboardContent() {
         </Box>
       </Box>
     </ThemeProvider>
+    : <LoginPage/>
   );
 }
 
