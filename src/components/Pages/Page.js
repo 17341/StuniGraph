@@ -50,9 +50,9 @@ const Page = () => {
     if (activeStep === 0) {
       sendQuery(window.localStorage.getItem("verificationQuery"), true).then(
         function (res) {
-          if (res === "New") {
+          if (res.length === 0) {
             setActiveStep(activeStep + 1);
-          } else if (res === "Found") {
+          } else if (res.length  !== 0) {
             message.warning({
               content: "This user already exists",
               style: { marginTop: "6vh" },
@@ -74,16 +74,12 @@ const Page = () => {
     } else {
       let values = JSON.parse(window.localStorage.getItem("registerQuery"));
       sendQuery(queryBuilder(values)).then(function (res) {
-        if (res === "Error") {
-          message.error({
-            content: "Error : Try again",
-            style: { marginTop: "6vh" },
-          });
-        } else {
+        if (res.length === 0 ||res.length !== 0 ) {
           message.success({
             content: "Registered",
             style: { marginTop: "6vh" },
           });
+          
           connect(values.status,values.email)
           Cookies.set("status", values.status)
           Cookies.set("email", values.email)
@@ -93,6 +89,11 @@ const Page = () => {
           );
           window.localStorage.setItem("registerQuery", "");
           window.localStorage.setItem("verificationQuery", "");
+        } else {
+          message.error({
+            content: "Error : Try again",
+            style: { marginTop: "6vh" },
+          });
         }
       });
     }

@@ -35,9 +35,9 @@ const LoginPage = () => {
       }),
       true
     ).then(function (res) {
-      if (res === "New") {
+      if (res.length === 0) {
         message.warning("Account not found");
-      } else if (res === "Found") {
+      } else if (res.length  !== 0) {
         sendQuery(
           verificationQuery(
             {
@@ -49,9 +49,9 @@ const LoginPage = () => {
           ),
           true
         ).then(function (res) {
-          if (res === "New") {
+          if (res.length === 0) {
             message.warning("Incorrect Password");
-          } else if (res === "Found") {
+          } else if (res.length  !== 0) {
             message.success("Connected");
             connect(data.get("status"), data.get("email"))
             Cookies.set("status", data.get("status"))

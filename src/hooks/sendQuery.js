@@ -16,7 +16,7 @@ async function sendQuery(query, read = false) {
     } else {
       result = await session.writeTransaction((tx) => tx.run(query));
     }
-    result.records.length !== 0 ? (response = "Found") : (response = "New");
+    response = result.records;
   } catch (error) {
     console.error("Something went wrong: ", error);
     response = "Error";

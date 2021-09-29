@@ -19,6 +19,7 @@ import disconnect from "../../hooks/disconnect";
 import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from 'js-cookie'
 import LoginPage from "./LoginPage";
+import PieChart  from "../Charts/PieChart";
 
 const drawerWidth = 240;
 
@@ -158,7 +159,7 @@ function DashboardContent() {
                   Total Students,courses,teachers
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={4} lg={9} >
                 <Paper
                   sx={{
                     p: 2,
@@ -167,7 +168,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  Pie chart student grade
+                  <PieChart/>
                 </Paper>
               </Grid>
               <Grid item xs={12} md={4} lg={3}>
@@ -183,7 +184,7 @@ function DashboardContent() {
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={4} lg={9}>
                 <Paper
                   sx={{
                     p: 2,

@@ -25,11 +25,11 @@ const AddPage = () => {
   const handleClick = (values) => {
     //console.log(queryBuilder(values))
     sendQuery(verificationQuery(values), true).then(function (res) {
-      if (res === "New") {
+      if (res.length === 0) {
         sendQuery(queryBuilder(values));
         message.success("Added");
         form.resetFields();
-      } else if (res === "Found") {
+      } else if (res.length  !== 0) {
         message.warning("This user already exists");
         form.resetFields(["identification"]);
       } else {
