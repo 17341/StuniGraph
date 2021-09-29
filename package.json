@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts4": "^4.10.22",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.1",
@@ -12,6 +13,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.16.13",
+    "js-cookie": "^3.0.1",
     "neo4j-driver": "^4.3.3",
     "neovis.js": "^1.6.0",
     "react": "^17.0.2",

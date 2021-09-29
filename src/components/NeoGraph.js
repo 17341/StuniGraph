@@ -1,16 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
-import { findByLabelText } from "@testing-library/react";
 
 const NeoGraph = (props) => {
-  const {
-    containerId,
-    style,
-    neo4jUri,
-    neo4jUser,
-    neo4jPassword,
-  } = props;
+  const { containerId, style, neo4jUri, neo4jUser, neo4jPassword } = props;
 
   const visRef = useRef();
 
@@ -20,40 +13,43 @@ const NeoGraph = (props) => {
       server_url: neo4jUri,
       server_user: neo4jUser,
       server_password: neo4jPassword,
+      // hierarchical : true,
+      // hierarchical_sort_method :"directed",
+      encrypted : "ENCRYPTION_ON",
+      trust : "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
       labels: {
-        "STUDENT": {
-            "caption": "firstname",
+        STUDENT: {
+          caption: "firstname",
         },
-        "TEACHER": {
-            "caption": "acronym",
+        TEACHER: {
+          caption: "acronym",
         },
-        "GRADE": {
-            "caption": "name",
+        GRADE: {
+          caption: "name",
         },
-        "COURSE": {
-            "caption": "code",
-        }
+        COURSE: {
+          caption: "code",
+        },
       },
       relationships: {
-        "BELONGS_TO": {
-          "thickness": "weight",
-          "caption": false
+        BELONGS_TO: {
+          thickness: "weight",
+          caption: false,
         },
-        "HAS": {
-          "thickness": "weight",
-          "caption": false
+        HAS: {
+          thickness: "weight",
+          caption: false,
         },
-        "IS_IN": {
-          "thickness": "weight",
-          "caption": false
+        IS_IN: {
+          thickness: "weight",
+          caption: false,
         },
-        "TEACHS": {
-          "thickness": "weight",
-          "caption": false
-        }
+        TEACHS: {
+          thickness: "weight",
+          caption: false,
+        },
       },
-      initial_cypher:
-        "MATCH (n)-[r]->(m) RETURN *",
+      initial_cypher: "MATCH (n)-[r]->(m) RETURN *",
     };
     const vis = new Neovis(config);
     vis.render();
@@ -61,16 +57,10 @@ const NeoGraph = (props) => {
 
   return (
     <>
-      <h1 style = {{textAlign: "center"}}>Database Graph</h1>
-      <div
-        id={containerId}
-        ref={visRef}
-        style={style}
-      />
+      <div id={containerId} ref={visRef} style={style} />
     </>
   );
 };
-
 
 NeoGraph.propTypes = {
   width: PropTypes.number.isRequired,
@@ -82,4 +72,4 @@ NeoGraph.propTypes = {
   backgroundColor: PropTypes.string,
 };
 
-export { NeoGraph};
+export { NeoGraph };

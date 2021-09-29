@@ -1,61 +1,23 @@
-import "./App.css"
-import { useState } from "react";
-import AddPage from "./components/Pages/AddPage";
-import ViewPage from "./components/Pages/ViewPage";
-import LoginPage from "./components/Pages/LoginPage";
-import { Layout, Menu } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
+import "./App.css";
 
-const App = () =>{
+import LoginPage from "./components/Pages/LoginPage";
+import DashboardPage from "./components/Pages/DashboardPage";
+import LoadingPage from "./components/Pages/LoadingPage";
+import IsConnected from "./hooks/isConnected";
+import Cookies from 'js-cookie'
+
+const App = () => {
+  let connected = IsConnected(Cookies.get("status"),Cookies.get("email"))
   
-  const { Header, Sider, Content } = Layout;
-  const [add, setAdd] = useState(false)
-  const [connected, setConnected] = useState(false)
-  const onSelect = (e) =>{
-    e.key === "add" ? setAdd(true) : setAdd(false)
+  if (connected) {
+    return <DashboardPage/>
   }
-  return (
-    <>
-    {connected ? 
-      <Layout>
-        <Sider >
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['view']} onSelect = {onSelect}>
-            {/* <Menu.Item key="profile" icon={<UserOutlined />}>
-              Profile
-            </Menu.Item> */}
-            <Menu.Item key="add" icon={<UploadOutlined  />}>
-              Add
-            </Menu.Item>
-            <Menu.Item key="view" icon={<VideoCameraOutlined/>}>
-              View
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            <Header />
-          </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 800,
-            }}
-          >
-            {add ? <AddPage /> : <ViewPage />}
-          </Content>
-        </Layout>
-      </Layout>
-    : <LoginPage login ={(e) => setConnected(e)}/>}
-    </>
-  );
-}
+  else if (connected === undefined){
+    return <LoadingPage/>
+  }
+  else{
+    return <LoginPage/>
+  };
+};
 
 export default App;
