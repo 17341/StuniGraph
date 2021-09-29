@@ -3,9 +3,9 @@ let result;
 async function sendQuery(query, read = false) {
   const neo4j = require("neo4j-driver");
 
-  const uri = "bolt://localhost:7687/neo4j";
+  const uri = "bolt://d2acb154.databases.neo4j.io";
   const user = "neo4j";
-  const password = "1234";
+  const password = "WvmsXdVKVexZbLvbgv_qqykN8aU97-Rp0LCgbAlhZhc";
 
   const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
   const session = driver.session();

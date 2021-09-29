@@ -7,10 +7,8 @@ const CoursePage = () => {
   const [customizePAE, setCustomizePAE] = useState(false);
   const [form] = Form.useForm();
   const handleClick = (courses) => {
-    values["courses"] = courses.courses;
-    values["customPAE"] = customizePAE;
+    courses.courses ? values["courses"] = courses.courses : values["customPAE"] = courses.customPAE
     window.localStorage.setItem("registerQuery", JSON.stringify(values));
-    console.log(JSON.parse(window.localStorage.getItem("registerQuery")));
   };
 
   return (

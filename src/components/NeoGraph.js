@@ -13,6 +13,10 @@ const NeoGraph = (props) => {
       server_url: neo4jUri,
       server_user: neo4jUser,
       server_password: neo4jPassword,
+      // hierarchical : true,
+      // hierarchical_sort_method :"directed",
+      encrypted : "ENCRYPTION_ON",
+      trust : "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
       labels: {
         STUDENT: {
           caption: "firstname",

@@ -20,6 +20,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from 'js-cookie'
 import LoginPage from "./LoginPage";
 import PieChart  from "../Charts/PieChart";
+import BarChart from "../Charts/BarChart";
+import TagCloud from "../Charts/TagCloud";
+import LineChart from "../Charts/LineChart";
 
 const drawerWidth = 240;
 
@@ -147,55 +150,56 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12}>
                 <Paper
                   sx={{
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    height: 300,
                   }}
                 >
-                  Total Students,courses,teachers
+                  <LineChart/>
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={4} lg={9} >
+              <Grid item xs={12} md={4} lg={6} >
                 <Paper
                   sx={{
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    height: 300,
                   }}
                 >
                   <PieChart/>
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={4} lg={6}>
                 <Paper
                   sx={{
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    height: 300,
                   }}
                 >
-                  top 3 courses
+                  <BarChart/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} >
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 400,
+                  }}
+                >
+                  <TagCloud/>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  Students register year bar chart
-                </Paper>
-              </Grid>
+              
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper

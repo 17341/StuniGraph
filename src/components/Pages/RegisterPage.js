@@ -33,15 +33,15 @@ const RegisterPage = () => {
     const data = new FormData(event.currentTarget);
 
     values = {
-      status: data.get("status"),
+      status: status,
       first_name: data.get("firstName"),
       last_name: data.get("lastName"),
       identification: data.get("identification"),
       grade: data.get("grade"),
       email: data.get("email"),
       salary: data.get("salary"),
-      acronym: data.get("identification"),
       password: data.get("password"),
+      customPAE : false
     };
 
     window.localStorage.setItem("registerQuery", JSON.stringify(values));
@@ -90,7 +90,7 @@ const RegisterPage = () => {
                     required
                     fullWidth
                     defaultValue="STUDENT"
-                    onChange={(e) => setStatus(e.target.value)}
+                    onChange={(e) => {setStatus(e.target.value)}}
                   >
                     <MenuItem value="TEACHER">Teacher</MenuItem>
                     <MenuItem value="STUDENT">Student</MenuItem>

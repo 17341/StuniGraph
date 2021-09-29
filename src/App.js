@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 
 const App = () => {
   let connected = IsConnected(Cookies.get("status"),Cookies.get("email"))
-  console.log(connected)
+  
   if (connected) {
     return <DashboardPage/>
   }
