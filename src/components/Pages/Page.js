@@ -19,7 +19,7 @@ import CoursePage from "./CoursePage";
 import sendQuery from "../../hooks/sendQuery";
 import { message } from "antd";
 import queryBuilder from "../../hooks/queryBuilder";
-import DashboardPage from "./DashboardPage";
+import App from "../../App";
 import Copyright from "../../utils/Copyright";
 import Cookies from "js-cookie";
 import connect from "../../hooks/connect";
@@ -82,9 +82,10 @@ const Page = () => {
             style: { marginTop: "6vh" },
           });
 
-          connect(values.status, values.email);
+          connect(values.status, values.email, values.password);
           Cookies.set("status", values.status);
           Cookies.set("email", values.email);
+          Cookies.set("password", values.password)
           setActiveStep(activeStep + 1);
           setFinalMessage(
             `Welcome to the Graph ${values.first_name}, you can now view all the graph .`
@@ -110,7 +111,7 @@ const Page = () => {
       {login ? (
         <LoginPage />
       ) : view ? (
-        <DashboardPage />
+        <App />
       ) : (
         <ThemeProvider theme={theme}>
           <CssBaseline />

@@ -10,6 +10,7 @@ const PieChart = () => {
   useLayoutEffect(() => {
     am4core.useTheme(am4themes_kelly);
     am4core.useTheme(am4themes_animated);
+    am4core.addLicense("ch-custom-attribution")
     let chart = am4core.create("pieChart", am4charts.PieChart);
     sendQuery(`MATCH (s:STUDENT) return s.grade`, true).then(function (res) {
       // Set data

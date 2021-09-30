@@ -10,6 +10,7 @@ const BarChart = () => {
   useLayoutEffect(() => {
     am4core.useTheme(am4themes_kelly);
     am4core.useTheme(am4themes_animated);
+    am4core.addLicense("ch-custom-attribution")
     // Create chart instance
     let chart = am4core.create("barChart", am4charts.XYChart);
     // chart.scrollbarX = new am4core.Scrollbar();

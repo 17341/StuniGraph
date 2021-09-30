@@ -58,9 +58,10 @@ const LoginPage = () => {
               content: "Connected",
               style: { marginTop: "6vh" },
             });
-            connect(data.get("status"), data.get("email"))
+            connect(data.get("status"), data.get("email"), data.get("password"))
             Cookies.set("status", data.get("status"))
             Cookies.set("email", data.get("email"))
+            Cookies.set("password", data.get("password"))
             setLogin(true);
             history.push("/dashboard");
           } else {

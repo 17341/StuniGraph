@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -75,7 +74,7 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-const DashboardPage = ({ items }) => {
+const DashboardPage = ({ items,status }) => {
   const [open, setOpen] = React.useState(false);
   const [connected, setConnected] = React.useState(true);
   const history = useHistory();
@@ -117,7 +116,7 @@ const DashboardPage = ({ items }) => {
             <IconButton
               color="inherit"
               onClick={() => {
-                disconnect(Cookies.get("status"), Cookies.get("email"));
+                disconnect(Cookies.get("status"), Cookies.get("email"), Cookies.get("password"));
                 message.warning({
                   content: "Disconnected",
                   style: { marginTop: "6vh" },
@@ -143,9 +142,7 @@ const DashboardPage = ({ items }) => {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Divider />
-          <Sider />
-          <Divider />
+          <Sider status ={status}/>
           {/* <List>{secondaryListItems}</List> */}
         </Drawer>
         <Box

@@ -11,25 +11,24 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory,
   Redirect,
 } from "react-router-dom";
 
 const App = () => {
-  let connected = IsConnected(Cookies.get("status"), Cookies.get("email"));
+  let connected = IsConnected(Cookies.get("status"), Cookies.get("email"), Cookies.get("password"));
 
   if (connected) {
     return (
       <Router>
         <Switch>
           <Route path="/dashboard/coursecloud">
-            <DashboardPage items={["coursecloud"]} />
+            <DashboardPage status = {Cookies.get("status")} items={["coursecloud"]} />
           </Route>
           <Route path="/dashboard/graph">
-            <DashboardPage items={["graph"]} />
+            <DashboardPage status = {Cookies.get("status")}  items={["graph"]} />
           </Route>
           <Route path="/dashboard/overview">
-            <DashboardPage items={["overview"]} />
+            <DashboardPage status = {Cookies.get("status")}  items={["overview"]} />
           </Route>
           {/* <Route path="/profile">
             <DashboardPage />
@@ -38,8 +37,8 @@ const App = () => {
             path="*"
             exact ={true}
           >
-            <DashboardPage items={["overview", "graph", "coursecloud"]} />
-            <Redirect from="*" to="/dashboard" />
+            <DashboardPage status = {Cookies.get("status")} items={["overview"]} />
+            <Redirect from="*" to="/dashboard/overview" />
           </Route>
         </Switch>
       </Router>
