@@ -13,32 +13,29 @@ const LineChart = () => {
     let chart = am4core.create("lineChart", am4charts.XYChart);
     chart.paddingRight = 20;
     sendQuery(
-      `match (s:STUDENT)-[r:REGISTER_IN]->(d:DATE) return d.year `,
+      `MATCH (s:STUDENT)
+      OPTIONAL MATCH (s)-[:REGISTER_IN]->(d:DATE)
+      RETURN d.year, count(s) AS value`,
       true
     ).then(function (res) {
       let previousValue;
 
-      let dataDict = {};
-      res.forEach((key) => {
+      chart.data = res.map((key) => {
         try {
-          if (dataDict.hasOwnProperty(key["_fields"][0])) {
-            dataDict[key["_fields"][0]] += 1;
-          } else {
-            dataDict[key["_fields"][0]] = 1;
-          }
+          let color =
+            previousValue <=
+            key["_fields"][1]["low"] + key["_fields"][1]["high"]
+              ? "orange"
+              : "purple";
+          previousValue = key["_fields"][1]["low"] + key["_fields"][1]["high"];
+          return {
+            date: key["_fields"][0],
+            value: key["_fields"][1]["low"] + key["_fields"][1]["high"],
+            color: color,
+          };
         } catch {}
       });
-
-      chart.data = Object.keys(dataDict).map((key) => {
-        let color = previousValue <= dataDict[key] ? "orange" : "purple";
-        previousValue = dataDict[key];
-        return {
-          date: key,
-          value: dataDict[key],
-          color: color,
-        };
-      });
-    });
+   
 
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
@@ -71,7 +68,8 @@ const LineChart = () => {
     title.text = "Number of registration per year";
     title.fontSize = 16;
     title.fontWeight = "600";
-    
+  });
+
   }, []);
 
   return (

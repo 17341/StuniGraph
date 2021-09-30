@@ -16,13 +16,16 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ViewPage from "./ViewPage";
 import Copyright from "../../utils/Copyright";
 import disconnect from "../../hooks/disconnect";
-import LogoutIcon from '@mui/icons-material/Logout';
-import Cookies from 'js-cookie'
+import LogoutIcon from "@mui/icons-material/Logout";
+import Cookies from "js-cookie";
 import LoginPage from "./LoginPage";
-import PieChart  from "../Charts/PieChart";
+import PieChart from "../Charts/PieChart";
 import BarChart from "../Charts/BarChart";
 import TagCloud from "../Charts/TagCloud";
 import LineChart from "../Charts/LineChart";
+import Sider from "./Sider";
+import { useHistory } from "react-router-dom";
+import {message} from "antd"
 
 const drawerWidth = 240;
 
@@ -72,15 +75,14 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+const DashboardPage = ({ items }) => {
   const [open, setOpen] = React.useState(false);
   const [connected, setConnected] = React.useState(true);
+  const history = useHistory();
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  return (
-    connected ?
+  return connected ? (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
@@ -112,8 +114,19 @@ function DashboardContent() {
             >
               NoSQL Graph with Neo4j
             </Typography>
-            <IconButton color="inherit" onClick = {() => {disconnect(Cookies.get("status"),Cookies.get("email"));setConnected(false)}}>
-                <LogoutIcon />
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                disconnect(Cookies.get("status"), Cookies.get("email"));
+                message.warning({
+                  content: "Disconnected",
+                  style: { marginTop: "6vh" },
+                });
+                setConnected(false);
+                history.push("/login");
+              }}
+            >
+              <LogoutIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -131,7 +144,7 @@ function DashboardContent() {
             </IconButton>
           </Toolbar>
           <Divider />
-          {/* <List>{mainListItems}</List> */}
+          <Sider />
           <Divider />
           {/* <List>{secondaryListItems}</List> */}
         </Drawer>
@@ -150,57 +163,64 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 300,
-                  }}
-                >
-                  <LineChart/>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={6} >
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 300,
-                  }}
-                >
-                  <PieChart/>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 300,
-                  }}
-                >
-                  <BarChart/>
-                </Paper>
-              </Grid>
+              {items && items.includes("overview") ? (
+                <>
+                  <Grid item xs={12}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 300,
+                      }}
+                    >
+                      <LineChart />
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12} md={4} lg={6}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 300,
+                      }}
+                    >
+                      <PieChart />
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12} md={4} lg={6}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 300,
+                      }}
+                    >
+                      <BarChart />
+                    </Paper>
+                  </Grid>
+                </>
+              ) : "" }
+              {items && items.includes("coursecloud") ? (
               <Grid item xs={12} >
                 <Paper
                   sx={{
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 400,
+                    height: 600,
                   }}
                 >
                   <TagCloud/>
                 </Paper>
               </Grid>
+              ) : "" }
               {/* Recent Deposits */}
-              
+
               {/* Recent Orders */}
+              {items && items.includes("graph") ? (
               <Grid item xs={12}>
                 <Paper
                   sx={{
@@ -216,16 +236,16 @@ function DashboardContent() {
                   <ViewPage />
                 </Paper>
               </Grid>
+               ) : "" }
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
     </ThemeProvider>
-    : <LoginPage/>
+  ) : (
+    <LoginPage />
   );
-}
+};
 
-export default function DashboardPage() {
-  return <DashboardContent />;
-}
+export default DashboardPage;

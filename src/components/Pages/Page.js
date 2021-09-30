@@ -21,8 +21,9 @@ import { message } from "antd";
 import queryBuilder from "../../hooks/queryBuilder";
 import DashboardPage from "./DashboardPage";
 import Copyright from "../../utils/Copyright";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import connect from "../../hooks/connect";
+import { useHistory } from "react-router-dom";
 
 const steps = ["Sign up", "Choose courses", "Review"];
 
@@ -46,13 +47,14 @@ const Page = () => {
   const [login, setLogin] = React.useState(false);
   const [view, setView] = React.useState(false);
   const [finalMessage, setFinalMessage] = React.useState("");
+  const history = useHistory();
   const handleNext = () => {
     if (activeStep === 0) {
       sendQuery(window.localStorage.getItem("verificationQuery"), true).then(
         function (res) {
           if (res.length === 0) {
             setActiveStep(activeStep + 1);
-          } else if (res.length  !== 0) {
+          } else if (res.length !== 0) {
             message.warning({
               content: "This user already exists",
               style: { marginTop: "6vh" },
@@ -74,15 +76,15 @@ const Page = () => {
     } else {
       let values = JSON.parse(window.localStorage.getItem("registerQuery"));
       sendQuery(queryBuilder(values)).then(function (res) {
-        if (res.length === 0 ||res.length !== 0 ) {
+        if (res.length === 0 || res.length !== 0) {
           message.success({
             content: "Registered",
             style: { marginTop: "6vh" },
           });
-          
-          connect(values.status,values.email)
-          Cookies.set("status", values.status)
-          Cookies.set("email", values.email)
+
+          connect(values.status, values.email);
+          Cookies.set("status", values.status);
+          Cookies.set("email", values.email);
           setActiveStep(activeStep + 1);
           setFinalMessage(
             `Welcome to the Graph ${values.first_name}, you can now view all the graph .`
@@ -174,7 +176,10 @@ const Page = () => {
                         <Grid item>
                           <Button
                             sx={{ mt: 3, ml: 1 }}
-                            onClick={() => setLogin(true)}
+                            onClick={() => {
+                              setLogin(true);
+                              history.push("/login");
+                            }}
                           >
                             Already have an account? Sign in
                           </Button>
