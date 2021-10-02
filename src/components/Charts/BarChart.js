@@ -10,6 +10,7 @@ const BarChart = () => {
   useLayoutEffect(() => {
     am4core.useTheme(am4themes_kelly);
     am4core.useTheme(am4themes_animated);
+    am4core.addLicense("ch-custom-attribution")
     // Create chart instance
     let chart = am4core.create("barChart", am4charts.XYChart);
     // chart.scrollbarX = new am4core.Scrollbar();
@@ -28,13 +29,15 @@ const BarChart = () => {
       true
     ).then(function (res) {
       // Add data
-
-      chart.data = res.map((key) => {
-        return {
-          year: key["_fields"][0],
-          students: key["_fields"][1]["low"] + key["_fields"][1]["high"],
-        };
-      });
+      try {
+        chart.data = res.map((key) => {
+          return {
+            year: key["_fields"][0],
+            students: key["_fields"][1]["low"] + key["_fields"][1]["high"],
+          };
+        });
+      }
+      catch{}
     });
     // Create axes
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());

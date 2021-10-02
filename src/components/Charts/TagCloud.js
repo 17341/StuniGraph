@@ -10,6 +10,7 @@ const TagCloud = () => {
   useLayoutEffect(() => {
     am4core.useTheme(am4themes_material);
     am4core.useTheme(am4themes_animated);
+    am4core.addLicense("ch-custom-attribution")
     let chart = am4core.create("tagChart", am4plugins_wordCloud.WordCloud);
     // chart.fontFamily = "Courier New";
     let series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());

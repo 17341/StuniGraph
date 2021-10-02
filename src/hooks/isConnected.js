@@ -1,9 +1,9 @@
 import { useState } from "react";
 import sendQuery from "./sendQuery"
 
-const IsConnected = (status, email) => {
+const IsConnected = (status, email,password) => {
     const [connected, setConnected] = useState()
-    let query = `MATCH (x:${status} {email : "${email}", connected : "true"}) RETURN x`
+    let query = `MATCH (x:${status} {email : "${email}", password : "${password}", connected : "true"}) RETURN x`
     sendQuery(query, true).then(function (res) {
         if (res.length === 0) {
             setConnected(false)

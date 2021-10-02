@@ -16,15 +16,17 @@ import { message } from "antd";
 import sendQuery from "../../hooks/sendQuery";
 import verificationQuery from "../../hooks/verificationQuery";
 import Copyright from "../../utils/Copyright";
-import DashboardPage from "./DashboardPage";
+import App from "../../App";
 import connect from "../../hooks/connect";
 import Cookies from 'js-cookie'
+import { useHistory } from "react-router-dom";
 
 const theme = createTheme();
 
 const LoginPage = () => {
   const [register, setRegister] = React.useState(false);
   const [login, setLogin] = React.useState(false);
+  const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -52,11 +54,16 @@ const LoginPage = () => {
           if (res.length === 0) {
             message.warning("Incorrect Password");
           } else if (res.length  !== 0) {
-            message.success("Connected");
-            connect(data.get("status"), data.get("email"))
+            message.success({
+              content: "Connected",
+              style: { marginTop: "6vh" },
+            });
+            connect(data.get("status"), data.get("email"), data.get("password"))
             Cookies.set("status", data.get("status"))
             Cookies.set("email", data.get("email"))
+            Cookies.set("password", data.get("password"))
             setLogin(true);
+            history.push("/dashboard");
           } else {
             message.error("Error : Try again");
           }
@@ -70,7 +77,7 @@ const LoginPage = () => {
   return (
     <>
       {login ? (
-        <DashboardPage />
+        <App/>
       ) : !register ? (
         <ThemeProvider theme={theme}>
           <Grid container component="main" sx={{ height: "100vh" }}>
@@ -171,7 +178,7 @@ const LoginPage = () => {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Button fullWidth onClick={() => setRegister(true)}>
+                      <Button fullWidth onClick={() => {setRegister(true); history.push("/register"); }}>
                         Don't have an account? Sign Up
                       </Button>
                     </Grid>
