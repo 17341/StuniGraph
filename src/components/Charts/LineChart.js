@@ -20,9 +20,8 @@ const LineChart = () => {
       true
     ).then(function (res) {
       let previousValue;
-      
-      chart.data = res.map((key) => {
-        try {
+      try {
+        chart.data = res.map((key) => {
           let value = key["_fields"][1]["low"] + key["_fields"][1]["high"];
           let color = previousValue <= value ? "orange" : "purple";
           previousValue = value;
@@ -31,8 +30,10 @@ const LineChart = () => {
             value: value,
             color: color,
           };
-        } catch {return "error"}
-      });
+        });
+      } catch {
+        return "error";
+      }
 
       let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
       categoryAxis.dataFields.category = "date";
@@ -58,7 +59,6 @@ const LineChart = () => {
 
       // let scrollbarX = new am4core.Scrollbar();
       // chart.scrollbarX = scrollbarX;
-
 
       let title = chart.titles.create();
       title.text = "Number of registration per year";

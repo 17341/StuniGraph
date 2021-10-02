@@ -13,6 +13,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import ReviewPage from "./components/Pages/ReviewPage";
 
 const App = () => {
   let connected = IsConnected(Cookies.get("status"), Cookies.get("email"), Cookies.get("password"));
@@ -23,6 +24,9 @@ const App = () => {
         <Switch>
           <Route path="/dashboard/coursecloud">
             <DashboardPage status = {Cookies.get("status")} items={["coursecloud"]} />
+          </Route>
+          <Route path="/dashboard/review">
+            <ReviewPage />
           </Route>
           <Route path="/dashboard/graph">
             <DashboardPage status = {Cookies.get("status")}  items={["graph"]} />

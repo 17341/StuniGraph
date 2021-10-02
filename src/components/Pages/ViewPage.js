@@ -48,7 +48,7 @@ const ViewPage = () => {
         neo4jUser={NEO4J_USER}
         neo4jPassword={NEO4J_PASSWORD}
         style={{
-          height: `500px`,
+          height: `600px`,
         }}
       />
     </div>

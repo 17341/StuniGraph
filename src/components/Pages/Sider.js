@@ -6,7 +6,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 import PreviewIcon from "@mui/icons-material/Preview";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import WbCloudyIcon from "@mui/icons-material/WbCloudy";
-import AddIcon from "@mui/icons-material/Add";
+import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useHistory } from "react-router-dom";
 import List from "@mui/material/List";
@@ -26,11 +26,11 @@ const Sider = ({ status }) => {
           <ListItemText primary="Profile" />
         </ListItem>
         {status === "ADMIN" ? (
-          <ListItem button onClick={() => history.push("/add")}>
+          <ListItem button onClick={() => history.push("/manage")}>
             <ListItemIcon>
-              <AddIcon />
+              <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Add" />
+            <ListItemText primary="Manage" />
           </ListItem>
         ) : (
           ""
