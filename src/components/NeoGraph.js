@@ -34,19 +34,19 @@ const NeoGraph = (props) => {
       relationships: {
         BELONGS_TO: {
           thickness: "weight",
-          caption: false,
+          caption: true,
         },
         HAS: {
           thickness: "weight",
-          caption: false,
+          caption: true,
         },
         IS_IN: {
           thickness: "weight",
-          caption: false,
+          caption: true,
         },
         TEACHS: {
           thickness: "weight",
-          caption: false,
+          caption: true,
         },
       },
       initial_cypher: "MATCH (n)-[r]->(m) RETURN *",

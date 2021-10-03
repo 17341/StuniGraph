@@ -63,7 +63,7 @@ const LoginPage = () => {
             Cookies.set("email", data.get("email"))
             Cookies.set("password", data.get("password"))
             setLogin(true);
-            history.push("/dashboard");
+            history.push("/dashboard/overview");
           } else {
             message.error("Error : Try again");
           }

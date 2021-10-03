@@ -19,21 +19,30 @@ const { Option } = Select;
 
 const AddPage = () => {
   const [customizePAE, setCustomizePAE] = useState(false);
-  const [status, setStatus] = useState("TEACHER");
+  const [status, setStatus] = useState("STUDENT");
   const [form] = Form.useForm();
 
   const handleClick = (values) => {
-    //console.log(queryBuilder(values))
+    console.log(values);
     sendQuery(verificationQuery(values), true).then(function (res) {
       if (res.length === 0) {
         sendQuery(queryBuilder(values));
-        message.success("Added");
+        message.success({
+          content: "Added",
+          style: { marginTop: "6vh" },
+        });
         form.resetFields();
-      } else if (res.length  !== 0) {
-        message.warning("This user already exists");
+      } else if (res.length !== 0) {
+        message.warning({
+          content: "This user already exists",
+          style: { marginTop: "6vh" },
+        });
         form.resetFields(["identification"]);
       } else {
-        message.error("Error : Try again");
+        message.error({
+          content: "Error : Try again",
+          style: { marginTop: "6vh" },
+        });
       }
     });
   };
@@ -49,7 +58,7 @@ const AddPage = () => {
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 14 }}
         initialValues={{
-          status: "TEACHER",
+          status: status,
         }}
         layout="horizontal"
         onFinish={handleClick}

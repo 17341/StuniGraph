@@ -24,7 +24,10 @@ import TagCloud from "../Charts/TagCloud";
 import LineChart from "../Charts/LineChart";
 import Sider from "./Sider";
 import { useHistory } from "react-router-dom";
-import {message} from "antd"
+import { message } from "antd";
+import AddPage from "./AddPage";
+import ModifyPage from "./ModifyPage";
+import DeletePage from "./DeletePage";
 
 const drawerWidth = 240;
 
@@ -74,13 +77,14 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-const DashboardPage = ({ items,status }) => {
+const DashboardPage = ({ items }) => {
   const [open, setOpen] = React.useState(false);
   const [connected, setConnected] = React.useState(true);
   const history = useHistory();
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  let status = Cookies.get("status");
   return connected ? (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -116,7 +120,11 @@ const DashboardPage = ({ items,status }) => {
             <IconButton
               color="inherit"
               onClick={() => {
-                disconnect(Cookies.get("status"), Cookies.get("email"), Cookies.get("password"));
+                disconnect(
+                  Cookies.get("status"),
+                  Cookies.get("email"),
+                  Cookies.get("password")
+                );
                 message.warning({
                   content: "Disconnected",
                   style: { marginTop: "6vh" },
@@ -142,8 +150,7 @@ const DashboardPage = ({ items,status }) => {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Sider status ={status}/>
-          {/* <List>{secondaryListItems}</List> */}
+          <Sider status={status} />
         </Drawer>
         <Box
           component="main"
@@ -199,41 +206,104 @@ const DashboardPage = ({ items,status }) => {
                     </Paper>
                   </Grid>
                 </>
-              ) : "" }
+              ) : (
+                ""
+              )}
               {items && items.includes("coursecloud") ? (
-              <Grid item xs={12} >
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 600,
-                  }}
-                >
-                  <TagCloud/>
-                </Paper>
-              </Grid>
-              ) : "" }
+                <Grid item xs={12}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      height: 600,
+                    }}
+                  >
+                    <TagCloud />
+                  </Paper>
+                </Grid>
+              ) : (
+                ""
+              )}
               {/* Recent Deposits */}
 
               {/* Recent Orders */}
               {items && items.includes("graph") ? (
-              <Grid item xs={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    borderRadius: "20px",
-                    boxShadow: "0 4px 30px 0 rgba(0, 0, 0, 0.05)",
-                    padding: "20px",
-                    backgroundColor: "white",
-                  }}
-                >
-                  <ViewPage />
-                </Paper>
-              </Grid>
-               ) : "" }
+                <Grid item xs={12}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      borderRadius: "20px",
+                      boxShadow: "0 4px 30px 0 rgba(0, 0, 0, 0.05)",
+                      padding: "20px",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <ViewPage />
+                  </Paper>
+                </Grid>
+              ) : (
+                ""
+              )}
+              {items && items.includes("add") ? (
+                <Grid item xs={12}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      borderRadius: "20px",
+                      boxShadow: "0 4px 30px 0 rgba(0, 0, 0, 0.05)",
+                      padding: "20px",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <AddPage />
+                  </Paper>
+                </Grid>
+              ) : (
+                ""
+              )}
+              {items && items.includes("modify") ? (
+                <Grid item xs={12}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      borderRadius: "20px",
+                      boxShadow: "0 4px 30px 0 rgba(0, 0, 0, 0.05)",
+                      padding: "20px",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <ModifyPage />
+                  </Paper>
+                </Grid>
+              ) : (
+                ""
+              )}
+              {items && items.includes("delete") ? (
+                <Grid item xs={12}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      borderRadius: "20px",
+                      boxShadow: "0 4px 30px 0 rgba(0, 0, 0, 0.05)",
+                      padding: "20px",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <DeletePage />
+                  </Paper>
+                </Grid>
+              ) : (
+                ""
+              )}
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
