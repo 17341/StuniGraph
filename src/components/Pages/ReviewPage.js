@@ -6,7 +6,17 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    render: (text) => {
+      let code;
+      Object.keys(CoursesDict).forEach((key) => {
+        CoursesDict[key].forEach((course) => {
+          if (course.name === text) {
+            code = course.code
+          }
+        })
+      })
+      return <a href={`https://plus.ecam.be/public/fiche/2021/${code}`} target="_blank">{text}</a>
+    }
   },
   {
     title: "Code",
@@ -29,7 +39,7 @@ const columns = [
     key: "action",
     render: () => (
       <Space size="middle">
-        <a>Delete</a>
+        <button>Delete</button>
       </Space>
     ),
   },

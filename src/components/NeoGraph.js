@@ -15,8 +15,8 @@ const NeoGraph = (props) => {
       server_password: neo4jPassword,
       // hierarchical : true,
       // hierarchical_sort_method :"directed",
-      encrypted : "ENCRYPTION_ON",
-      trust : "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
+      // encrypted : "ENCRYPTION_ON",
+      // trust : "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
       labels: {
         STUDENT: {
           caption: "firstname",
@@ -34,19 +34,19 @@ const NeoGraph = (props) => {
       relationships: {
         BELONGS_TO: {
           thickness: "weight",
-          caption: true,
+          caption: false,
         },
         HAS: {
           thickness: "weight",
-          caption: true,
+          caption: false,
         },
         IS_IN: {
           thickness: "weight",
-          caption: true,
+          caption: false,
         },
         TEACHS: {
           thickness: "weight",
-          caption: true,
+          caption: false,
         },
       },
       initial_cypher: "MATCH (n)-[r]->(m) RETURN *",

@@ -4,9 +4,13 @@ import Filter from "../Filter";
 import { Button } from "antd";
 import { BsFilter } from "react-icons/bs";
 
-const NEO4J_URI = "bolt://d2acb154.databases.neo4j.io";
+// const NEO4J_URI = "bolt://d2acb154.databases.neo4j.io";
+// const NEO4J_USER = "neo4j";
+// const NEO4J_PASSWORD = "WvmsXdVKVexZbLvbgv_qqykN8aU97-Rp0LCgbAlhZhc";
+
+const NEO4J_URI = "bolt://localhost:7687/neo4j";
 const NEO4J_USER = "neo4j";
-const NEO4J_PASSWORD = "WvmsXdVKVexZbLvbgv_qqykN8aU97-Rp0LCgbAlhZhc";
+const NEO4J_PASSWORD = "1234";
 
 const ViewPage = () => {
   const [showFilter, setShowFilter] = useState(false);
