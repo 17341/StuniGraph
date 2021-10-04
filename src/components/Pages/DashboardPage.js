@@ -241,7 +241,7 @@ const DashboardPage = ({ items }) => {
                       backgroundColor: "white",
                     }}
                   >
-                    <ViewPage />
+                    <ViewPage query = "MATCH (n)-[r]->(m) RETURN *"/>
                   </Paper>
                 </Grid>
               ) : (

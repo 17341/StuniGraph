@@ -16,6 +16,7 @@ import RegisterPage from "./RegisterPage";
 import ReviewPage from "./ReviewPage";
 import LoginPage from "./LoginPage";
 import CoursePage from "./CoursePage";
+import ViewPage from "./ViewPage";
 import sendQuery from "../../hooks/sendQuery";
 import { message } from "antd";
 import queryBuilder from "../../hooks/queryBuilder";
@@ -153,6 +154,7 @@ const Page = () => {
                     </Typography>
                     <Typography variant="subtitle1">{finalMessage}</Typography>
                     <p align="right">
+                      <ViewPage query = {`MATCH (n: ${Cookies.get("status")} {email : "${Cookies.get("email")}"})-[r]->(m) RETURN *`} />
                       <Button
                         variant="contained"
                         sx={{ mt: 3, ml: 1, backgroundColor: "green" }}

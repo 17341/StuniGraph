@@ -12,7 +12,7 @@ const NEO4J_URI = "bolt://localhost:7687/neo4j";
 const NEO4J_USER = "neo4j";
 const NEO4J_PASSWORD = "1234";
 
-const ViewPage = () => {
+const ViewPage = ({query}) => {
   const [showFilter, setShowFilter] = useState(false);
   const [color, setColor] = useState("black");
 
@@ -54,6 +54,7 @@ const ViewPage = () => {
         style={{
           height: `600px`,
         }}
+        query = {query}
       />
     </div>
   );
