@@ -15,7 +15,7 @@ const columns = [
           }
         })
       })
-      return <a href={`https://plus.ecam.be/public/fiche/2021/${code}`} target="_blank">{text}</a>
+      return <a href={`https://plus.ecam.be/public/fiche/2021/${code}`} target="_blank" rel="noreferrer" >{text}</a>
     }
   },
   {

@@ -26,7 +26,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/profile">
-            <DashboardPage items={["manage"]} />
+            <DashboardPage items={["profile"]} />
           </Route>
           <Route path="/manage/add">
             <DashboardPage items={["add"]} />

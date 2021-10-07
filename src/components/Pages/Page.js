@@ -35,7 +35,7 @@ function getStepContent(step) {
     case 1:
       return <CoursePage />;
     case 2:
-      return <ReviewPage />;
+      return <ReviewPage value={JSON.parse(window.localStorage.getItem("registerQuery"))}/>;
     default:
       throw new Error("Unknown step");
   }
@@ -154,7 +154,7 @@ const Page = () => {
                     </Typography>
                     <Typography variant="subtitle1">{finalMessage}</Typography>
                     <p align="right">
-                      <ViewPage query = {`MATCH (n: ${Cookies.get("status")} {email : "${Cookies.get("email")}"})-[r]->(m) RETURN *`} />
+                      <ViewPage query = {`MATCH (n: ${Cookies.get("status")} {email : "${Cookies.get("email")}"})-[r]->(m) RETURN *`} filterButton = {false} />
                       <Button
                         variant="contained"
                         sx={{ mt: 3, ml: 1, backgroundColor: "green" }}

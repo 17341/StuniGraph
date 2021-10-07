@@ -6,12 +6,12 @@ import ListSubheader from "@mui/material/ListSubheader";
 import PreviewIcon from "@mui/icons-material/Preview";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import WbCloudyIcon from "@mui/icons-material/WbCloudy";
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useHistory } from "react-router-dom";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 const Sider = ({ status }) => {
@@ -21,15 +21,8 @@ const Sider = ({ status }) => {
     <>
       <Divider />
       <List>
-        <ListItem button onClick={() => history.push("/profile")}>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItem>
         {status === "ADMIN" ? (
           <>
-            <Divider />
             <ListSubheader inset>Manage</ListSubheader>
             <ListItem button onClick={() => history.push("/manage/modify")}>
               <ListItemIcon>
@@ -51,7 +44,12 @@ const Sider = ({ status }) => {
             </ListItem>
           </>
         ) : (
-          ""
+          <ListItem button onClick={() => history.push("/profile")}>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </ListItem>
         )}
         <Divider />
         <ListSubheader inset>Dashboard</ListSubheader>
