@@ -12,6 +12,8 @@ const ProfilePage = () => {
   const [name, setName] = useState("Unknown");
   const [properties, setProperties] = useState();
   const [values, setValues] = useState([]);
+  const [hours, setHours] = useState(0);
+  const [credits, setCredits] = useState(0);
 
   const columns = [
     {
@@ -85,6 +87,8 @@ const ProfilePage = () => {
       let i = 0;
       let data = [];
       let courses = [];
+      let totalCredits = 0
+      let totalHours = 0
       res.forEach((elem) => {
         Object.keys(CoursesDict).forEach((key) => {
           CoursesDict[key].forEach((course) => {
@@ -99,11 +103,15 @@ const ProfilePage = () => {
                   credits: course.credits,
                   hours: course.hours,
                 });
+                totalCredits += parseInt(course.credits)
+                totalHours +=  parseInt(course.hours)
               }
             }
           });
         });
       });
+      setHours(totalHours)
+      setCredits(totalCredits)
       setValues(data);
     });
   }, []);
@@ -111,35 +119,51 @@ const ProfilePage = () => {
   return connected ? (
     <>
       {properties ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginBottom: "30px"
-          }}
-        >
-          <h3>
-            Name : {properties.firstname} {properties.lastname}
-          </h3>
-          <h3>Grade : {properties.grade}</h3>
-          <h3>Year : 20{properties.matricule.slice(0, 2)}</h3>
-          <h3>Matricule : {properties.matricule}</h3>
-          <h3>Email : {properties.email}</h3>
-          <Avatar>{properties ? properties.firstname.slice(0, 1) : "U"}</Avatar>
-        </div>
+        <>
+          <div
+            style={{
+              marginBottom: "10px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <h4>
+              {" "}
+              Name : {properties.firstname} {properties.lastname}{" "}
+            </h4>
+            <h4>Matricule : {properties.matricule}</h4>
+            <h4>Email : {properties.email}</h4>
+            <h4>Grade : {properties.grade}</h4>
+            <h4>Year : 20{properties.matricule.slice(0, 2)}</h4>
+            <Avatar>
+              {properties ? properties.firstname.slice(0, 1) : "U"}
+            </Avatar>
+          </div>
+          <h2 align="center">Courses Taken</h2>
+          <Table columns={columns} dataSource={values} size="small" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              marginBottom: "30px",
+            }}
+          >
+            <h4>Total Hours : {hours} hours </h4>
+            <h4>Total Credits : {credits} credits </h4>
+          </div>
+          <h2 align="center">Graph Vizualisation</h2>
+          <ViewPage
+            query={`MATCH (n: ${Cookies.get("status")} {email : "${Cookies.get(
+              "email"
+            )}"})-[r]->(m) RETURN *`}
+            filterButton={false}
+          />
+        </>
       ) : (
         <LoadingPage />
       )}
-      <h2 align="center">Courses Taken</h2>
-      <Table columns={columns} dataSource={values} size="small" />
-      <h2 align="center">Graph Vizualisation</h2>
-      <ViewPage
-        query={`MATCH (n: ${Cookies.get("status")} {email : "${Cookies.get(
-          "email"
-        )}"})-[r]->(m) RETURN *`}
-        filterButton={false}
-      />
     </>
   ) : (
     <LoadingPage />
