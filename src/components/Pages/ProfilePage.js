@@ -136,11 +136,11 @@ const ProfilePage = () => {
             <h4>Email : {properties.email}</h4>
             <h4>Grade : {properties.grade}</h4>
             <h4>Year : 20{properties.matricule.slice(0, 2)}</h4>
-            <Avatar>
+            <Avatar sx={{ bgcolor:"blue" }}>
               {properties ? properties.firstname.slice(0, 1) : "U"}
             </Avatar>
           </div>
-          <h2 align="center">Courses Taken</h2>
+          <h2 align="center">My Courses</h2>
           <Table columns={columns} dataSource={values} size="small" />
           <div
             style={{
@@ -153,7 +153,7 @@ const ProfilePage = () => {
             <h4>Total Hours : {hours} hours </h4>
             <h4>Total Credits : {credits} credits </h4>
           </div>
-          <h2 align="center">Graph Vizualisation</h2>
+          <h2 align="center">Where am I ? </h2>
           <ViewPage
             query={`MATCH (n: ${Cookies.get("status")} {email : "${Cookies.get(
               "email"
