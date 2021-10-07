@@ -71,6 +71,7 @@ const DeletePage = () => {
         layout="horizontal"
         onFinish={handleFinish}
       >
+        <h2 align="center">Delete</h2>
         <Form.Item label="Status" name="status" required>
           <Select
             onSelect={(e) => {

@@ -63,6 +63,7 @@ const AddPage = () => {
         layout="horizontal"
         onFinish={handleClick}
       >
+        <h2 align="center">Add</h2>
         <Form.Item label="Status" name="status" required>
           <Select onSelect={(e) => setStatus(e)}>
             <Option value="STUDENT">Student</Option>

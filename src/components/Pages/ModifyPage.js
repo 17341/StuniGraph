@@ -126,6 +126,7 @@ const ModifyPage = () => {
         layout="horizontal"
         onFinish={handleFinish}
       >
+        <h2 align="center">Modify</h2>
         <Form.Item label="Status" name="status" required>
           <Select
             onSelect={(e) => {
