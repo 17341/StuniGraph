@@ -51,7 +51,7 @@ const ReviewPage = () => {
 
   if (!values.customPAE && values.status === "STUDENT") {
     let i = 0;
-    console.log(values);
+    //console.log(values);
     CoursesDict[values.grade].forEach((course) => {
       i += 1;
       data.push({
@@ -68,7 +68,7 @@ const ReviewPage = () => {
       Object.keys(CoursesDict).forEach((key) => {
         CoursesDict[key].forEach((course) => {
           if (course.code === elem) {
-            console.log(course);
+            //console.log(course);
             i += 1;
             data.push({
               key: i,
@@ -82,7 +82,7 @@ const ReviewPage = () => {
       });
     });
   }
-  console.log(data);
+  //console.log(data);
 
   return (
     <div style={{ textAlign: "center" }}>

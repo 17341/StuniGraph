@@ -25,6 +25,7 @@ import Copyright from "../../utils/Copyright";
 import Cookies from "js-cookie";
 import connect from "../../hooks/connect";
 import { useHistory } from "react-router-dom";
+import verify from "../../hooks/verifyForm";
 
 const steps = ["Sign up", "Choose courses", "Review"];
 
@@ -49,56 +50,66 @@ const Page = () => {
   const [view, setView] = React.useState(false);
   const [finalMessage, setFinalMessage] = React.useState("");
   const history = useHistory();
+
   const handleNext = () => {
-    if (activeStep === 0) {
-      sendQuery(window.localStorage.getItem("verificationQuery"), true).then(
-        function (res) {
-          if (res.length === 0) {
-            setActiveStep(activeStep + 1);
-          } else if (res.length !== 0) {
-            message.warning({
-              content: "This user already exists",
+    let values = JSON.parse(window.localStorage.getItem("registerQuery"));
+    //console.log(values);
+    if (verify(values)) {
+      if (activeStep === 0) {
+        sendQuery(window.localStorage.getItem("verificationQuery"), true).then(
+          function (res) {
+            if (res.length === 0) {
+              setActiveStep(activeStep + 1);
+            } else if (res.length !== 0) {
+              message.warning({
+                content: "This user already exists",
+                style: { marginTop: "6vh" },
+              });
+            } else {
+              message.error({
+                content: "Error : Try again",
+                style: { marginTop: "6vh" },
+              });
+            }
+          }
+        );
+      } else if (activeStep === 1) {
+        //verify credits > 45 < 75 
+        message.success({
+          content: "Courses added",
+          style: { marginTop: "6vh" },
+        });
+        setActiveStep(activeStep + 1);
+      } else {
+        sendQuery(queryBuilder(values)).then(function (res) {
+          if (res.length === 0 || res.length !== 0) {
+            message.success({
+              content: "Registered",
               style: { marginTop: "6vh" },
             });
+  
+            connect(values.status, values.email, values.password);
+            Cookies.set("status", values.status);
+            Cookies.set("email", values.email);
+            Cookies.set("password", values.password)
+            setActiveStep(activeStep + 1);
+            setFinalMessage(
+              `Welcome to the Graph ${values.first_name}, you can now view all the graph .`
+            );
+            window.localStorage.setItem("registerQuery", "");
+            window.localStorage.setItem("verificationQuery", "");
           } else {
             message.error({
               content: "Error : Try again",
               style: { marginTop: "6vh" },
             });
           }
-        }
-      );
-    } else if (activeStep === 1) {
-      message.success({
-        content: "Courses added",
-        style: { marginTop: "6vh" },
-      });
-      setActiveStep(activeStep + 1);
+        });
+      }
     } else {
-      let values = JSON.parse(window.localStorage.getItem("registerQuery"));
-      sendQuery(queryBuilder(values)).then(function (res) {
-        if (res.length === 0 || res.length !== 0) {
-          message.success({
-            content: "Registered",
-            style: { marginTop: "6vh" },
-          });
-
-          connect(values.status, values.email, values.password);
-          Cookies.set("status", values.status);
-          Cookies.set("email", values.email);
-          Cookies.set("password", values.password)
-          setActiveStep(activeStep + 1);
-          setFinalMessage(
-            `Welcome to the Graph ${values.first_name}, you can now view all the graph .`
-          );
-          window.localStorage.setItem("registerQuery", "");
-          window.localStorage.setItem("verificationQuery", "");
-        } else {
-          message.error({
-            content: "Error : Try again",
-            style: { marginTop: "6vh" },
-          });
-        }
+      message.error({
+        content: "Complete : All the form",
+        style: { marginTop: "6vh" },
       });
     }
   };

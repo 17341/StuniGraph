@@ -14,6 +14,7 @@ import sendQuery from "../../hooks/sendQuery";
 import verificationQuery from "../../hooks/verificationQuery";
 import CoursesDict from "../../utils/CoursesDict";
 import Courses from "../../utils/Courses";
+import verify from "../../hooks/verifyForm";
 
 const { Option } = Select;
 
@@ -23,28 +24,36 @@ const AddPage = () => {
   const [form] = Form.useForm();
 
   const handleClick = (values) => {
-    console.log(values);
-    sendQuery(verificationQuery(values), true).then(function (res) {
-      if (res.length === 0) {
-        sendQuery(queryBuilder(values));
-        message.success({
-          content: "Added",
-          style: { marginTop: "6vh" },
-        });
-        form.resetFields();
-      } else if (res.length !== 0) {
-        message.warning({
-          content: "This user already exists",
-          style: { marginTop: "6vh" },
-        });
-        form.resetFields(["identification"]);
-      } else {
-        message.error({
-          content: "Error : Try again",
-          style: { marginTop: "6vh" },
-        });
-      }
-    });
+    if (verify(values)){
+      sendQuery(verificationQuery(values), true).then(function (res) {
+        if (res.length === 0) {
+          sendQuery(queryBuilder(values));
+          message.success({
+            content: "Added",
+            style: { marginTop: "6vh" },
+          });
+          form.resetFields();
+        } else if (res.length !== 0) {
+          message.warning({
+            content: "This user already exists",
+            style: { marginTop: "6vh" },
+          });
+          form.resetFields(["identification"]);
+        } else {
+          message.error({
+            content: "Error : Try again",
+            style: { marginTop: "6vh" },
+          });
+        }
+      });
+
+    }
+    else{
+      message.error({
+        content: "Complete : All the form",
+        style: { marginTop: "6vh" },
+      });
+    }
   };
 
   useEffect(() => {
@@ -59,6 +68,7 @@ const AddPage = () => {
         wrapperCol={{ span: 14 }}
         initialValues={{
           status: status,
+          customPAE : customizePAE,
         }}
         layout="horizontal"
         onFinish={handleClick}

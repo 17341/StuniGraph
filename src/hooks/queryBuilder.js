@@ -53,7 +53,7 @@ const queryBuilder = (values) => {
     "5MEO",
     "5MIC",
   ];
-  console.log(values);
+  //console.log(values);
 
   courses_list.forEach((elem) => {
     let name;

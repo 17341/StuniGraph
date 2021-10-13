@@ -22,7 +22,7 @@ const TagCloud = () => {
       RETURN c.name as course, count(c) AS value, c.code`,
       true
     ).then(function (res) {
-      console.log(res)
+      //console.log(res)
       series.data = res.map((key) => {
         return {
           name: key["_fields"][0],
