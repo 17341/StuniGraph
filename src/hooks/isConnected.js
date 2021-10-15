@@ -1,6 +1,6 @@
 import { useState } from "react";
 import sendQuery from "./sendQuery"
-
+import { message } from "antd"
 const IsConnected = (status, email,password) => {
     const [connected, setConnected] = useState()
     let query = `MATCH (x:${status} {email : "${email}", password : "${password}", connected : "true"}) RETURN x`
@@ -10,7 +10,7 @@ const IsConnected = (status, email,password) => {
         } else if (res.length  !== 0) {
             setConnected(true)
         } else {
-            console.log("Error : Try again");
+            message.error("Error : Try again");
         }
     });
     return connected

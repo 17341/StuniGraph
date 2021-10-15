@@ -19,18 +19,20 @@ const TagCloud = () => {
     sendQuery(
       `MATCH (s:STUDENT)
       OPTIONAL MATCH (s)-[:HAS]->(c:COURSE)
-      RETURN c.name as course, count(c) AS value`,
+      RETURN c.name as course, count(c) AS value, c.code`,
       true
     ).then(function (res) {
+      //console.log(res)
       series.data = res.map((key) => {
         return {
-          tag: key["_fields"][0],
+          name: key["_fields"][0],
+          url : key["_fields"][2],
           count: key["_fields"][1]["low"] + key["_fields"][1]["high"],
         };
       });
     });
 
-    series.dataFields.word = "tag";
+    series.dataFields.word = "name";
     series.dataFields.value = "count";
 
     series.heatRules.push({
@@ -41,8 +43,8 @@ const TagCloud = () => {
       dataField: "value",
     });
 
-    // series.labels.template.url =
-    //   "https://stackoverflow.com/questions/tagged/{word}";
+    series.labels.template.url =
+      "https://plus.ecam.be/public/fiche/2021/{url}";
     series.labels.template.urlTarget = "_blank";
     series.labels.template.tooltipText = "{word}: {value}";
 

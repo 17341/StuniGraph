@@ -6,7 +6,17 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    render: (text) => {
+      let code;
+      Object.keys(CoursesDict).forEach((key) => {
+        CoursesDict[key].forEach((course) => {
+          if (course.name === text) {
+            code = course.code
+          }
+        })
+      })
+      return <a href={`https://plus.ecam.be/public/fiche/2021/${code}`} target="_blank" rel="noreferrer" >{text}</a>
+    }
   },
   {
     title: "Code",
@@ -29,7 +39,7 @@ const columns = [
     key: "action",
     render: () => (
       <Space size="middle">
-        <a>Delete</a>
+        <button>Delete</button>
       </Space>
     ),
   },
@@ -41,7 +51,7 @@ const ReviewPage = () => {
 
   if (!values.customPAE && values.status === "STUDENT") {
     let i = 0;
-    console.log(values);
+    //console.log(values);
     CoursesDict[values.grade].forEach((course) => {
       i += 1;
       data.push({
@@ -58,7 +68,7 @@ const ReviewPage = () => {
       Object.keys(CoursesDict).forEach((key) => {
         CoursesDict[key].forEach((course) => {
           if (course.code === elem) {
-            console.log(course);
+            //console.log(course);
             i += 1;
             data.push({
               key: i,
@@ -72,7 +82,7 @@ const ReviewPage = () => {
       });
     });
   }
-  console.log(data);
+  //console.log(data);
 
   return (
     <div style={{ textAlign: "center" }}>

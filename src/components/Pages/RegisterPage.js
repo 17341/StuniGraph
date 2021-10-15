@@ -15,15 +15,12 @@ const RegisterPage = () => {
   const [status, setStatus] = React.useState("STUDENT");
 
   let values = {
-    status: undefined,
-    first_name: undefined,
-    last_name: undefined,
-    identification: undefined,
-    grade: undefined,
-    email: undefined,
-    salary: undefined,
-    acronym: undefined,
-    password: undefined,
+    status: null,
+    first_name: null,
+    last_name: null,
+    identification: null,
+    email: null,
+    password: null,
   };
 
   window.localStorage.setItem("registerQuery", JSON.stringify(values));
@@ -32,12 +29,21 @@ const RegisterPage = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    values = {
+    status === "STUDENT" ? values = {
       status: status,
       first_name: data.get("firstName"),
       last_name: data.get("lastName"),
       identification: data.get("identification"),
       grade: data.get("grade"),
+      email: data.get("email"),
+      password: data.get("password"),
+      customPAE : false
+    }
+    : values = {
+      status: status,
+      first_name: data.get("firstName"),
+      last_name: data.get("lastName"),
+      identification: data.get("identification"),
       email: data.get("email"),
       salary: data.get("salary"),
       password: data.get("password"),

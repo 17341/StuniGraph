@@ -6,11 +6,13 @@ import ListSubheader from "@mui/material/ListSubheader";
 import PreviewIcon from "@mui/icons-material/Preview";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import WbCloudyIcon from "@mui/icons-material/WbCloudy";
-import SettingsIcon from '@mui/icons-material/Settings';
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useHistory } from "react-router-dom";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 const Sider = ({ status }) => {
   const history = useHistory();
@@ -19,21 +21,35 @@ const Sider = ({ status }) => {
     <>
       <Divider />
       <List>
-        <ListItem button onClick={() => history.push("/profile")}>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItem>
         {status === "ADMIN" ? (
-          <ListItem button onClick={() => history.push("/manage")}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Manage" />
-          </ListItem>
+          <>
+            <ListSubheader inset>Manage</ListSubheader>
+            <ListItem button onClick={() => history.push("/manage/modify")}>
+              <ListItemIcon>
+                <ManageAccountsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Modify" />
+            </ListItem>
+            <ListItem button onClick={() => history.push("/manage/add")}>
+              <ListItemIcon>
+                <PersonAddAlt1Icon />
+              </ListItemIcon>
+              <ListItemText primary="Add" />
+            </ListItem>
+            <ListItem button onClick={() => history.push("/manage/delete")}>
+              <ListItemIcon>
+                <PersonRemoveIcon />
+              </ListItemIcon>
+              <ListItemText primary="Delete" />
+            </ListItem>
+          </>
         ) : (
-          ""
+          <ListItem button onClick={() => history.push("/profile")}>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </ListItem>
         )}
         <Divider />
         <ListSubheader inset>Dashboard</ListSubheader>

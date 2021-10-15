@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
 
 const NeoGraph = (props) => {
-  const { containerId, style, neo4jUri, neo4jUser, neo4jPassword } = props;
+  const { containerId, style, neo4jUri, neo4jUser, neo4jPassword,query } = props;
 
   const visRef = useRef();
 
@@ -15,8 +15,8 @@ const NeoGraph = (props) => {
       server_password: neo4jPassword,
       // hierarchical : true,
       // hierarchical_sort_method :"directed",
-      encrypted : "ENCRYPTION_ON",
-      trust : "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
+      // encrypted : "ENCRYPTION_ON",
+      // trust : "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
       labels: {
         STUDENT: {
           caption: "firstname",
@@ -49,7 +49,7 @@ const NeoGraph = (props) => {
           caption: false,
         },
       },
-      initial_cypher: "MATCH (n)-[r]->(m) RETURN *",
+      initial_cypher: query,
     };
     const vis = new Neovis(config);
     vis.render();
@@ -70,6 +70,7 @@ NeoGraph.propTypes = {
   neo4jUser: PropTypes.string.isRequired,
   neo4jPassword: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
+  query : PropTypes.string.isRequired,
 };
 
 export { NeoGraph };

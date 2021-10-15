@@ -14,28 +14,46 @@ import sendQuery from "../../hooks/sendQuery";
 import verificationQuery from "../../hooks/verificationQuery";
 import CoursesDict from "../../utils/CoursesDict";
 import Courses from "../../utils/Courses";
+import verify from "../../hooks/verifyForm";
 
 const { Option } = Select;
 
 const AddPage = () => {
   const [customizePAE, setCustomizePAE] = useState(false);
-  const [status, setStatus] = useState("TEACHER");
+  const [status, setStatus] = useState("STUDENT");
   const [form] = Form.useForm();
 
   const handleClick = (values) => {
-    //console.log(queryBuilder(values))
-    sendQuery(verificationQuery(values), true).then(function (res) {
-      if (res.length === 0) {
-        sendQuery(queryBuilder(values));
-        message.success("Added");
-        form.resetFields();
-      } else if (res.length  !== 0) {
-        message.warning("This user already exists");
-        form.resetFields(["identification"]);
-      } else {
-        message.error("Error : Try again");
-      }
-    });
+    if (verify(values)){
+      sendQuery(verificationQuery(values), true).then(function (res) {
+        if (res.length === 0) {
+          sendQuery(queryBuilder(values));
+          message.success({
+            content: "Added",
+            style: { marginTop: "6vh" },
+          });
+          form.resetFields();
+        } else if (res.length !== 0) {
+          message.warning({
+            content: "This user already exists",
+            style: { marginTop: "6vh" },
+          });
+          form.resetFields(["identification"]);
+        } else {
+          message.error({
+            content: "Error : Try again",
+            style: { marginTop: "6vh" },
+          });
+        }
+      });
+
+    }
+    else{
+      message.error({
+        content: "Complete : All the form",
+        style: { marginTop: "6vh" },
+      });
+    }
   };
 
   useEffect(() => {
@@ -49,11 +67,13 @@ const AddPage = () => {
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 14 }}
         initialValues={{
-          status: "TEACHER",
+          status: status,
+          customPAE : customizePAE,
         }}
         layout="horizontal"
         onFinish={handleClick}
       >
+        <h2 align="center">Add</h2>
         <Form.Item label="Status" name="status" required>
           <Select onSelect={(e) => setStatus(e)}>
             <Option value="STUDENT">Student</Option>

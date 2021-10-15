@@ -12,7 +12,7 @@ const queryBuilder = (values) => {
     }",email : "${values.email}", password : "${values.password}",
                  lastname :"${values.last_name}", matricule : "${
       values.identification
-    }", grade : "${values.grade}", connected :"true"}) MERGE (d:DATE {year : "20${values.identification.substring(0,2)}"})`;
+    }", grade : "${values.grade}", connected :"true"}) MERGE (d:DATE {year : "20${values.identification.toString().substring(0,2)}"})`;
     customPAE
       ? (courses_list = values.courses)
       : (courses_list = CoursesDict[values.grade].map((course) => {
@@ -53,6 +53,7 @@ const queryBuilder = (values) => {
     "5MEO",
     "5MIC",
   ];
+  //console.log(values);
 
   courses_list.forEach((elem) => {
     let name;
