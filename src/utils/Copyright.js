@@ -10,7 +10,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://github.com/17341">
-        FrigoFri
+        StuniGraph
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}

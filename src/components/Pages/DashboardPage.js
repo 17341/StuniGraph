@@ -94,7 +94,7 @@ const DashboardPage = ({ items }) => {
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
-              backgroundColor: "black",
+              backgroundColor: "green",
             }}
           >
             <IconButton
@@ -116,7 +116,7 @@ const DashboardPage = ({ items }) => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              NoSQL Graph with Neo4j
+              StuniGraph: Beta Version
             </Typography>
             <IconButton
               color="inherit"

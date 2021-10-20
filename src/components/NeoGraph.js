@@ -1,13 +1,26 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
+import FilterQueryBuilder from "../hooks/filterQueryBuilder";
 
 const NeoGraph = (props) => {
-  const { containerId, style, neo4jUri, neo4jUser, neo4jPassword,query } = props;
-
+  const {
+    containerId,
+    style,
+    neo4jUri,
+    neo4jUser,
+    neo4jPassword,
+    query,
+    filters,
+  } = props;
+  let newQuery = query;
   const visRef = useRef();
 
   useEffect(() => {
+    if (filters !== null) {
+      newQuery = FilterQueryBuilder(filters);
+    }
+
     const config = {
       container_id: visRef.current.id,
       server_url: neo4jUri,
@@ -20,15 +33,20 @@ const NeoGraph = (props) => {
       labels: {
         STUDENT: {
           caption: "firstname",
+          title_properties: ["firstname", "lastname", "matricule"],
         },
         TEACHER: {
           caption: "acronym",
+          title_properties: ["firstname", "lastname", "acronym", "salary"],
         },
         GRADE: {
           caption: "name",
         },
         COURSE: {
           caption: "code",
+        },
+        DATE: {
+          caption: "year",
         },
       },
       relationships: {
@@ -41,19 +59,23 @@ const NeoGraph = (props) => {
           caption: false,
         },
         IS_IN: {
-          thickness: "weight",
+          //thickness: "weight",
           caption: false,
         },
         TEACHS: {
-          thickness: "weight",
+          // thickness: "weight",
+          caption: false,
+        },
+        REGISTER_IN: {
+          //thickness: "weight",
           caption: false,
         },
       },
-      initial_cypher: query,
     };
     const vis = new Neovis(config);
+    vis.updateWithCypher(newQuery);
     vis.render();
-  }, [neo4jUri, neo4jUser, neo4jPassword]);
+  }, [neo4jUri, neo4jUser, neo4jPassword, query, filters]);
 
   return (
     <>
@@ -70,7 +92,7 @@ NeoGraph.propTypes = {
   neo4jUser: PropTypes.string.isRequired,
   neo4jPassword: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
-  query : PropTypes.string.isRequired,
+  query: PropTypes.string.isRequired,
 };
 
 export { NeoGraph };
