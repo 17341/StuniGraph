@@ -1,4 +1,4 @@
-import { Table, Tag, Space } from "antd";
+import { Table, Space } from "antd";
 import CoursesDict from "../../utils/CoursesDict";
 
 const columns = [
@@ -34,15 +34,15 @@ const columns = [
     key: "hours",
     dataIndex: "hours",
   },
-  {
-    title: "Action",
-    key: "action",
-    render: () => (
-      <Space size="middle">
-        <button>Delete</button>
-      </Space>
-    ),
-  },
+  // {
+  //   title: "Action",
+  //   key: "action",
+  //   render: () => (
+  //     <Space size="middle">
+  //       <button>Delete</button>
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const ReviewPage = () => {

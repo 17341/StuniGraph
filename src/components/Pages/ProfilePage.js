@@ -2,14 +2,13 @@ import sendQuery from "../../hooks/sendQuery";
 import IsConnected from "../../hooks/isConnected";
 import Cookies from "js-cookie";
 import ViewPage from "./ViewPage";
-import { Table, Tag, Space } from "antd";
+import { Table } from "antd";
 import LoadingPage from "./LoadingPage";
 import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import CoursesDict from "../../utils/CoursesDict";
 
 const ProfilePage = () => {
-  const [name, setName] = useState("Unknown");
   const [properties, setProperties] = useState();
   const [values, setValues] = useState([]);
   const [hours, setHours] = useState(0);
@@ -77,7 +76,7 @@ const ProfilePage = () => {
     "email"
   )}"})`;
   query +=
-    Cookies.get("status") == "STUDENT"
+    Cookies.get("status") === "STUDENT"
       ? ` OPTIONAL MATCH (s)-[:HAS]->(c:COURSE) RETURN c.code,s`
       : ` OPTIONAL MATCH (s)-[:TEACHS]->(c:COURSE) RETURN c.code,s`;
 

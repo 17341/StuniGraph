@@ -15,6 +15,7 @@ const NEO4J_PASSWORD = "WvmsXdVKVexZbLvbgv_qqykN8aU97-Rp0LCgbAlhZhc";
 const ViewPage = ({ query, filterButton = true }) => {
   const [showFilter, setShowFilter] = useState(false);
   const [color, setColor] = useState("black");
+  const [filters, setFilters] = useState(null);
 
   return (
     <div>
@@ -49,7 +50,7 @@ const ViewPage = ({ query, filterButton = true }) => {
       ) : (
         ""
       )}
-      {showFilter ? <Filter /> : ""}
+      {showFilter ? <Filter setFilters = {setFilters}/> : ""}
       <NeoGraph
         containerId={"id1"}
         neo4jUri={NEO4J_URI}
@@ -59,6 +60,7 @@ const ViewPage = ({ query, filterButton = true }) => {
           height: `600px`,
         }}
         query={query}
+        filters =  {filters}
       />
     </div>
   );

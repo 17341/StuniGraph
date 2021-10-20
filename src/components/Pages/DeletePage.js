@@ -44,6 +44,7 @@ const DeletePage = () => {
         });
       } else if (res.length !== 0) {
         sendQuery(`MATCH (x:${values.status} {email : "${values.email}"}) detach delete x`)
+        //setData(data.filter(key =>key.email !== values.email ))
         update()
         form.resetFields();
         message.success({

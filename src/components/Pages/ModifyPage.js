@@ -74,7 +74,7 @@ const ModifyPage = () => {
           style: { marginTop: "6vh" },
         });
       } else if (res.length !== 0) {
-        let relationship = values.status == "STUDENT" ? "HAS" : "TEACHS";
+        let relationship = values.status === "STUDENT" ? "HAS" : "TEACHS";
         let query = `MATCH (x:${values.status} {email : "${values.email}"})`;
         Object.keys(values).forEach((key) => {
           if (values[key]) {

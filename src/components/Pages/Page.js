@@ -138,7 +138,7 @@ const Page = () => {
           >
             <Toolbar>
               <Typography variant="h6" color="inherit" noWrap>
-                NoSQL Project : Neo4J
+                StuniGraph: Beta Version
               </Typography>
             </Toolbar>
           </AppBar>
