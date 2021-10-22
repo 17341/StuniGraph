@@ -4,13 +4,7 @@ import Filter from "../Filter";
 import { Button } from "antd";
 import { BsFilter } from "react-icons/bs";
 
-const NEO4J_URI = "bolt://d2acb154.databases.neo4j.io";
-const NEO4J_USER = "neo4j";
-const NEO4J_PASSWORD = "WvmsXdVKVexZbLvbgv_qqykN8aU97-Rp0LCgbAlhZhc";
-
-// const NEO4J_URI = "bolt://localhost:7687/neo4j";
-// const NEO4J_USER = "neo4j";
-// const NEO4J_PASSWORD = "1234";
+const credentials = require('../../utils/Credentials.json')
 
 const ViewPage = ({ query, filterButton = true }) => {
   const [showFilter, setShowFilter] = useState(false);
@@ -53,9 +47,9 @@ const ViewPage = ({ query, filterButton = true }) => {
       {showFilter ? <Filter setFilters = {setFilters}/> : ""}
       <NeoGraph
         containerId={"id1"}
-        neo4jUri={NEO4J_URI}
-        neo4jUser={NEO4J_USER}
-        neo4jPassword={NEO4J_PASSWORD}
+        neo4jUri={credentials.uri}
+        neo4jUser={credentials.user}
+        neo4jPassword={credentials.password}
         style={{
           height: `600px`,
         }}
