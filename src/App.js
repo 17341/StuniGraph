@@ -2,6 +2,7 @@ import "./App.css";
 
 import LoginPage from "./components/Pages/LoginPage";
 import DashboardPage from "./components/Pages/DashboardPage";
+import ForumPage from "./components/Pages/ForumPage";
 import LoadingPage from "./components/Pages/LoadingPage";
 import IsConnected from "./hooks/isConnected";
 import Cookies from "js-cookie";
@@ -27,6 +28,9 @@ const App = () => {
         <Switch>
           <Route path="/profile">
             <DashboardPage items={["profile"]} />
+          </Route>
+          <Route path="/utils/forum">
+            <DashboardPage items={["forum"]} />
           </Route>
           <Route path="/manage/add">
             <DashboardPage items={["add"]} />

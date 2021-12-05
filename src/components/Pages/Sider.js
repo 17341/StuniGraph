@@ -13,6 +13,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import ForumIcon from '@mui/icons-material/Forum';
 
 const Sider = ({ status }) => {
   const history = useHistory();
@@ -71,6 +72,14 @@ const Sider = ({ status }) => {
           </ListItemIcon>
           <ListItemText primary="Graph" />
         </ListItem>
+        <Divider />
+        <ListSubheader inset>Utils</ListSubheader>
+            <ListItem button onClick={() => history.push("/utils/forum")}>
+              <ListItemIcon>
+                <ForumIcon />
+              </ListItemIcon>
+              <ListItemText primary="Forum" />
+          </ListItem>
         <Divider />
       </List>
     </>

@@ -29,6 +29,7 @@ import AddPage from "./AddPage";
 import ModifyPage from "./ModifyPage";
 import DeletePage from "./DeletePage";
 import ProfilePage from "./ProfilePage";
+import ForumPage from "./ForumPage";
 
 const drawerWidth = 240;
 
@@ -262,6 +263,25 @@ const DashboardPage = ({ items }) => {
                     }}
                   >
                     <AddPage />
+                  </Paper>
+                </Grid>
+              ) : (
+                ""
+              )}
+              {items && items.includes("forum") ? (
+                <Grid item xs={12}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      borderRadius: "20px",
+                      boxShadow: "0 4px 30px 0 rgba(0, 0, 0, 0.05)",
+                      padding: "20px",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <ForumPage />
                   </Paper>
                 </Grid>
               ) : (
