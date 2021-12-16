@@ -1,8 +1,6 @@
 import "./App.css";
-
 import LoginPage from "./components/Pages/LoginPage";
 import DashboardPage from "./components/Pages/DashboardPage";
-import ForumPage from "./components/Pages/ForumPage";
 import LoadingPage from "./components/Pages/LoadingPage";
 import IsConnected from "./hooks/isConnected";
 import Cookies from "js-cookie";

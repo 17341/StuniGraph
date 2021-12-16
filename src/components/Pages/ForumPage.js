@@ -1,8 +1,13 @@
-import AddNewPost from "../../utils/AddNewPost";
-import Posts from '../../utils/Posts'
+import AddNewThread from "../../utils/AddNewThread";
+import Posts from "../../utils/Posts";
 
-const ForumPage = () =>{
-    return <Posts/>
-}
+const ForumPage = () => {
+  return (
+    <>
+      <AddNewThread />
+      
+    </>
+  );
+};
 
 export default ForumPage;
