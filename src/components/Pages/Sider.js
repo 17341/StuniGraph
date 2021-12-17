@@ -73,13 +73,13 @@ const Sider = ({ status }) => {
           <ListItemText primary="Graph" />
         </ListItem>
         <Divider />
-        <ListSubheader inset>Utils</ListSubheader>
-            <ListItem button onClick={() => history.push("/utils/forum")}>
-              <ListItemIcon>
-                <ForumIcon />
-              </ListItemIcon>
-              <ListItemText primary="Forum" />
-          </ListItem>
+        <ListSubheader inset>Architecture Logiciel</ListSubheader>
+        <ListItem button onClick={() => history.push("/al/forum")}>
+          <ListItemIcon>
+            <ForumIcon />
+          </ListItemIcon>
+          <ListItemText primary="Forum" />
+        </ListItem>
         <Divider />
       </List>
     </>

@@ -2,7 +2,7 @@ import { IconButton, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import { SetReaction } from "../hooks/API"
+import { SetReaction } from "./API"
 
 const VoteButtons = ({ post }) => {
   const handleClick = async (type) => {
@@ -14,8 +14,8 @@ const VoteButtons = ({ post }) => {
 
     if (type === "upvote") {
       upVotesCount = upVotesCount + 1;
-      SetReaction(post,1)
-    
+      SetReaction(post, 1)
+
     } else {
       downVotesCount = downVotesCount + 1;
     }

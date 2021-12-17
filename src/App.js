@@ -27,7 +27,7 @@ const App = () => {
           <Route path="/profile">
             <DashboardPage items={["profile"]} />
           </Route>
-          <Route path="/utils/forum">
+          <Route path="/al/forum">
             <DashboardPage items={["forum"]} />
           </Route>
           <Route path="/manage/add">

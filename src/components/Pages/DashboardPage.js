@@ -29,7 +29,7 @@ import AddPage from "./AddPage";
 import ModifyPage from "./ModifyPage";
 import DeletePage from "./DeletePage";
 import ProfilePage from "./ProfilePage";
-import ForumPage from "./ForumPage";
+import ForumPage from "../../AL/ForumPage";
 
 const drawerWidth = 240;
 
@@ -243,7 +243,7 @@ const DashboardPage = ({ items }) => {
                       backgroundColor: "white",
                     }}
                   >
-                    <ViewPage query = "MATCH (n)-[r]->(m) RETURN *"/>
+                    <ViewPage query="MATCH (n)-[r]->(m) RETURN *" />
                   </Paper>
                 </Grid>
               ) : (

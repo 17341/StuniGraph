@@ -1,9 +1,9 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Form, Input, Select, Button } from "antd";
 import EditableTagGroup from "./Tags";
-import { CreateThread } from "../hooks/API";
+import { CreateThread, GetAllCategories } from "./API";
 import { ThreadSchema, PostSchema } from "./Schemas";
-import Post from "./Post";
+import { v4 as uuidv4 } from 'uuid'
 
 const layout = {
   labelCol: {
@@ -14,34 +14,53 @@ const layout = {
   },
 };
 
-const AddNewThread = () => {
+const { Option } = Select;
+
+const AddNewThread = ({ handleSubmit }) => {
   const [form] = Form.useForm();
+  const [category, setCategory] = useState([])
+
+  useEffect(() => {
+    GetAllCategories().then((e) => setCategory(e.data))
+  }, [])
+
   const onFinish = (values) => {
     //Getting tags from localstorage
     values.tags = localStorage.getItem("tags");
-    console.log(
-      ThreadSchema({
-        id: "12",
-        title: values.title,
+
+    let thread = ThreadSchema({
+      title: values.title,
+      first_post: PostSchema({
+        id: uuidv4(),
         content: values.content,
-        tags: values.tags,
-        category: "Test",
-        first_post : PostSchema({id : 1, content : values.content, authorId : "7", children : []})
-      })
-    );
-    //CreateThread()
+        authorId: uuidv4(),
+        children: []
+      }),
+      tags: values.tags.split(","),
+      category: values.category
+    })
+
+    CreateThread(thread).then((e) => console.log(e))
+
     //Clearing all
+
     localStorage.setItem("tags", "");
     form.resetFields();
+    handleSubmit();
   };
 
   return (
     <Form form={form} {...layout} name="nest-messages" onFinish={onFinish}>
+      <h1 align="center">Create New Thread</h1>
       <Form.Item name="title" label="Title">
         <Input />
       </Form.Item>
       <Form.Item name="category" label="Category">
-        <Select />
+        <Select>
+          {category.map(element =>
+            <Option value={element}>{element}</Option>)
+          }
+        </Select>
       </Form.Item>
       <Form.Item name="tags" label="Tags">
         <EditableTagGroup />
